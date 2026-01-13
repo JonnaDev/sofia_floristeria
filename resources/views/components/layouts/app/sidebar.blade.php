@@ -36,6 +36,16 @@
                         {{ __('Crear Categoría') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+
+                <flux:sidebar.group :heading="__('Inventario')" class="grid">
+                    <flux:sidebar.item icon="archive-box" :href="route('restocks.index')" :current="request()->routeIs('restocks.index')" wire:navigate>
+                        {{ __('Flores a Reabastecer') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="clipboard-document-list" :href="route('restocks.history')" :current="request()->routeIs('restocks.history')" wire:navigate>
+                        {{ __('Historial de Reabastecimiento') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
             </flux:sidebar.nav>
 
             <flux:spacer />

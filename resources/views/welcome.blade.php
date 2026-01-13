@@ -64,8 +64,8 @@
     </section>
 
     <!-- Carousel de Flores -->
-    <section id="catalogo" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
+    <section id="catalogo" class="py-16 bg-zinc-300 pb-20">
+        <div class="container mx-auto px-10">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Nuestras Flores</h2>
 
             @if($flowers->count() > 0)
@@ -73,7 +73,7 @@
                     <div class="flex gap-6 min-w-max">
                         @foreach($flowers as $flower)
                             <div class="flower-card bg-gray-100 rounded-xl shadow-lg overflow-hidden w-80 flex-shrink-0">
-                                <div class="h-64 bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center overflow-hidden">
+                                <div class="h-64 bg-white flex items-center justify-center overflow-hidden">
                                     @if($flower->photo_flower_url)
                                         <img src="{{ asset('storage/' . $flower->photo_flower_url) }}"
                                              alt="{{ $flower->name }}"
@@ -93,7 +93,7 @@
                                     @if($flower->categories->count() > 0)
                                         <div class="flex flex-wrap gap-1 mb-3">
                                             @foreach($flower->categories as $category)
-                                                <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+                                                <span class="text-xs bg-pink-600 text-white text-fond-bold px-2 py-1 rounded-full">
                                                     {{ $category->name }}
                                                 </span>
                                             @endforeach
@@ -101,8 +101,8 @@
                                     @endif
 
                                     <div class="flex justify-between items-center">
-                                        <span class="text-2xl font-bold text-green-500">${{ number_format($flower->price, 0, ',', '.') }}</span>
-                                        <span class="text-sm text-green-500">Stock: {{ $flower->stock }}</span>
+                                        <span class="text-2xl font-bold text-pink-500">${{ number_format($flower->price, 0, ',', '.') }}</span>
+                                        <span class="text-sm text-pink-500">Stock: {{ $flower->stock }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -127,44 +127,142 @@
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Preguntas Frecuentes</h2>
 
             <div class="space-y-4">
-                @for ($i = 1; $i <= 4; $i++)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <button onclick="toggleAccordion('{{ $i }}')" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition">
-                            <span class="font-semibold text-gray-800 text-lg">Lorem ipsum dolor sit amet {{ $i }}?</span>
-                            <svg id="icon-{{ $i }}" class="w-6 h-6 text-pink-600 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div id="content-{{ $i }}" class="accordion-content px-6 pb-0">
-                            <div class="pb-4 text-gray-600">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-                            </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button onclick="toggleAccordion('1')" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition">
+                        <span class="font-semibold text-gray-800 text-lg">¿Cómo es el proceso de entrega?</span>
+                        <svg id="icon-1" class="w-6 h-6 text-pink-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="content-1" class="accordion-content px-6 pb-0">
+                        <div class="pb-4 text-gray-600">
+                            Coordinamos tu pedido por WhatsApp, la entrega se realiza en Neiva y áreas cercanas con tiempos estimados que se confirman al ordenar.
                         </div>
                     </div>
-                @endfor
+                </div>
+
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button onclick="toggleAccordion('2')" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition">
+                        <span class="font-semibold text-gray-800 text-lg">¿Qué medios de pago manejan?</span>
+                        <svg id="icon-2" class="w-6 h-6 text-pink-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="content-2" class="accordion-content px-6 pb-0">
+                        <div class="pb-4 text-gray-600 font-family-arial">
+                            Aceptamos transferencias, pagos por Nequi, Daviplata y efectivo.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button onclick="toggleAccordion('3')" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition">
+                        <span class="font-semibold text-gray-800 text-lg">¿Puedo hacer cambios en mi pedido?</span>
+                        <svg id="icon-3" class="w-6 h-6 text-pink-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="content-3" class="accordion-content px-6 pb-0">
+                        <div class="pb-4 text-gray-600 font-family-arial">
+                            Sí, puedes modificar tu pedido con mínimo 24 horas de anticipación a la entrega.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button onclick="toggleAccordion('4')" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition">
+                        <span class="font-semibold text-gray-800 text-lg">¿Hacen entregas fuera de Neiva?</span>
+                        <svg id="icon-4" class="w-6 h-6 text-pink-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="content-4" class="accordion-content px-6 pb-0">
+                        <div class="pb-4 text-gray-600 font-family-arial">
+                            Actualmente trabajamos principalmente en Neiva, pero puedes consultarnos por entregas en otras ciudades.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button onclick="toggleAccordion('5')" class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition">
+                        <span class="font-semibold text-gray-800 text-lg">¿Cuales son nuestros horarios de atención?</span>
+                        <svg id="icon-5" class="w-6 h-6 text-pink-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="content-5" class="accordion-content px-6 pb-0">
+                        <div class="pb-4 text-gray-600 font-family-arial">
+                            Estamos para servirte de lunes a sábado de 7:00 a.m. a 7:00 p.m. Domingos y festivos: 8:00 a.m. a 12:00 p.m.
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Cards 2x2 Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-pink-200">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Sobre Nosotros</h2>
+            <h2 class="text-4xl font-bold text-center text-pink-500 mb-12">Por qué elegirnos?</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                @for ($i = 1; $i <= 4; $i++)
+
                     <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
                         <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum {{ $i }}</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Flores 100% Naturales</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Productos frescos seleccionados cuidadosamente.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+                        <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum</h3>
                         <p class="text-gray-600 leading-relaxed">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
                         </p>
                     </div>
-                @endfor
+
+
+                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+                        <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+                        </p>
+                    </div>
+
+
+                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
+                        <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+                        </p>
+                    </div>
+
+
             </div>
         </div>
     </section>
@@ -175,8 +273,8 @@
             <h3 class="text-2xl font-bold mb-4">Sofía Florería</h3>
             <p class="text-gray-400 mb-6">Flores frescas con amor desde 2026</p>
             <div class="flex justify-center gap-6">
-                <a href="#" class="text-gray-400 hover:text-white transition">Facebook</a>
-                <a href="#" class="text-gray-400 hover:text-white transition">Instagram</a>
+                <a href="https://web.facebook.com/people/Floristería-Sofía/100064982413493/?rdid=eeF1UAxhuDGcyBtY" class="text-gray-400 hover:text-white transition">Facebook</a>
+                <a href="https://www.instagram.com/floristeriasofianeiva?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D" class="text-gray-400 hover:text-white transition">Instagram</a>
                 <a href="#" class="text-gray-400 hover:text-white transition">WhatsApp</a>
             </div>
             <p class="text-gray-500 text-sm mt-8">&copy; 2026 Sofía Florería. Todos los derechos reservados.</p>

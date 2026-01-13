@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="flex gap-4">
-                    <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold">
+                    <button type="submit" class="bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold">
                         Crear Categoría
                     </button>
                     <a href="{{ route('categories.index') }}" class="bg-gray-300 dark:bg-zinc-700 text-gray-700 dark:text-gray-200 px-6 py-3 rounded-lg hover:bg-gray-400 dark:hover:bg-zinc-600 transition font-semibold">

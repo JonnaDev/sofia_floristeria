@@ -15,7 +15,7 @@
                         Mostrando {{ $categories->firstItem() ?? 0 }} - {{ $categories->lastItem() ?? 0 }} de {{ $categories->total() }} categorías
                     </p>
                 </div>
-                <a href="{{ route('categories.create') }}" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold">
+                <a href="{{ route('categories.create') }}" class="bg-pink-500 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold">
                     + Nueva Categoría
                 </a>
             </div>
