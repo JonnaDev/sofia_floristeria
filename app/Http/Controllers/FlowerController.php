@@ -14,11 +14,23 @@ class FlowerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Flower::with('categories')
-                      ->orderBy('id', 'asc')
-                      ->paginate(10);
+        $query = Flower::with('categories');
+
+        // Filtro de búsqueda
+        // El filtro funciona de manera manual con ORM ELOQUENT
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('price', 'like', "%{$search}%");
+            });
+        }
+        // Definir el paginado en base a los registros de $data->query(ORM ELOQUENT SQL)
+        $data = $query->orderBy('id', 'asc')->paginate(9)->withQueryString();
+
         return view('flowers.index', compact('data'));
     }
 
