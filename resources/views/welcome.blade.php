@@ -6,11 +6,52 @@
     <title>Sofía Florería</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Animación de entrada suave para toda la página */
+        body {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Animación para elementos que se deslizan hacia arriba */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Hover effect para las cards de flores */
+        .flower-card {
+            transition: all 0.3s ease;
+        }
+
         .flower-card:hover {
             transform: translateY(-5px);
             transition: all 0.3s ease;
         }
 
+        /* Accordion styles */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -21,6 +62,7 @@
             max-height: 500px;
         }
 
+        /* Text clamp utility */
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -33,9 +75,17 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="text-2xl font-bold text-pink-600 hover:text-pink-400 transition">
-                Sofía Florería
+            <div class="flex items-center">
+                <a href="{{ route('home') }}" class="flex items-center hover:scale-105 transition-transform duration-300">
+                    <img src="{{ asset('storage/flowers/logo.webp') }}" alt="Sofía Florería" class="h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
+                </a>
             </div>
+
+            <div class="flex items-center gap-8 text-lg">
+                 <a href="{{ route('home') }}" class="flex-item justify-center text-pink-500 hover:text-pink-600 transition font-semibold">Inicio</a>
+                 <a href="{{ route('catalog') }}" class="flex-item justify-center text-pink-500 hover:text-pink-600 transition font-semibold">Catálogo</a>
+            </div>
+           
 
             <div class="flex items-center gap-6">
                 @if (Route::has('login'))
@@ -205,63 +255,54 @@
         </div>
     </section>
 
-    <!-- Cards 2x2 Section -->
-    <section class="py-16 bg-pink-200">
+    <!-- Por qué elegirnos Section -->
+    <section class="py-16 bg-pink-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-pink-500 mb-12">Por qué elegirnos?</h2>
+            <h2 class="text-4xl font-bold text-center text-pink-500 mb-16 fade-in">¿Por qué elegirnos?</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-center items-start gap-16 max-w-6xl mx-auto">
 
-                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
-                        <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Flores 100% Naturales</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            Productos frescos seleccionados cuidadosamente.
-                        </p>
+                <!-- Primera Card: Flores 100% Naturales -->
+                <div class="flex flex-col items-center text-center max-w-sm fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="w-24 h-24 mb-6">
+                        <svg class="w-full h-full text-pink-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C10.343 2 9 3.343 9 5c0 .552.224 1.052.586 1.414L12 8.828l2.414-2.414C14.776 6.052 15 5.552 15 5c0-1.657-1.343-3-3-3zm0 0"></path>
+                            <path d="M19.071 4.929c-1.562-1.562-4.095-1.562-5.657 0L12 6.343 10.586 4.93c-1.562-1.562-4.095-1.562-5.657 0s-1.562 4.095 0 5.657l7.071 7.07 7.071-7.07c1.562-1.562 1.562-4.095 0-5.657z"></path>
+                            <path d="M12 22c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm5-7c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-10 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path>
+                        </svg>
                     </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Flores 100% Naturales</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Productos frescos seleccionados cuidadosamente.
+                    </p>
+                </div>
 
-                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
-                        <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-                        </p>
+                <!-- Segunda Card: Entrega en Neiva -->
+                <div class="flex flex-col items-center text-center max-w-sm fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="w-24 h-24 mb-6">
+                        <svg class="w-full h-full text-pink-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 18.5a1.5 1.5 0 01-1.5-1.5 1.5 1.5 0 01 1.5-1.5 1.5 1.5 0 011.5 1.5 1.5 1.5 0 01-1.5 1.5m1.5-9l1.96 2.5H17V9.5m-11 9A1.5 1.5 0 017.5 17 1.5 1.5 0 016 15.5 1.5 1.5 0 017.5 14 1.5 1.5 0 019 15.5 1.5 1.5 0 017.5 17M20 8h-3V4H3c-1.11 0-2 .89-2 2v11h2a3 3 0 003 3 3 3 0 003-3h6a3 3 0 003 3 3 3 0 003-3h2v-5l-3-4z"></path>
+                        </svg>
                     </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Entrega en Neiva</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Coordinamos tu entrega directamente vía WhatsApp.
+                    </p>
+                </div>
 
-
-                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
-                        <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-                        </p>
+                <!-- Tercera Card: Pedidos Seguros -->
+                <div class="flex flex-col items-center text-center max-w-sm fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="w-24 h-24 mb-6">
+                        <svg class="w-full h-full text-pink-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 18H10v-2h4v2zm6-4H4V4h16v12z"></path>
+                            <path d="M12 6c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-1.5 6v-4l3 2-3 2z" fill="white"></path>
+                        </svg>
                     </div>
-
-
-                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition">
-                        <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-                        </p>
-                    </div>
-
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Pedidos Seguros</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Gestiona tu pedido con total tranquilidad y confianza.
+                    </p>
+                </div>
 
             </div>
         </div>
@@ -288,10 +329,10 @@
     <!-- Footer -->
     <footer class="bg-gray-700 text-white py-12">
         <div class="container mx-auto px-16">
-            <!-- Contenido Principal del Footer -->
+
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
 
-                <!-- Columna 1: Información de la Florería -->
+
                 <div class="flex flex-col items-start">
                     <h3 class="text-2xl font-bold mb-4">Sofía Floristería</h3>
                     <p class="text-gray-300 text-sm leading-relaxed">
@@ -299,7 +340,7 @@
                     </p>
                 </div>
 
-                <!-- Columna 2: Navegación -->
+
                 <div class="flex flex-col items-start ml-8">
                     <h4 class="text-lg font-bold mb-4">Navegación</h4>
                     <ul class="space-y-2">
@@ -311,7 +352,7 @@
                     </ul>
                 </div>
 
-                <!-- Columna 3: Contacto -->
+
                 <div class="flex flex-col items-start ml-8">
                     <h4 class="text-lg font-bold mb-4">Contacto</h4>
                     <ul class="space-y-2">
@@ -343,7 +384,7 @@
                     </ul>
                 </div>
 
-                <!-- Columna 4: Redes Sociales -->
+
                 <div class="flex flex-col items-start ml-8">
                     <h4 class="text-lg font-bold mb-4">Síguenos</h4>
                     <div class="flex flex-col gap-3">
@@ -372,8 +413,8 @@
 
             </div>
 
-            <!-- Línea Separadora -->
-            <div class="border-t border-gray-600 mt-8 pt-6">
+
+            <div class="border-t border-black mt-8 pt-6">
                 <p class="text-center text-gray-400 text-sm">
                     © 2026 Sofía Floristería. Todos los derechos reservados.
                 </p>
@@ -382,6 +423,7 @@
     </footer>
 
     <script>
+        // Funcion del ToggleAccordion de FAQS
         function toggleAccordion(index) {
             const content = document.getElementById(`content-${index}`);
             const icon = document.getElementById(`icon-${index}`);
