@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -11,9 +13,21 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::withCount('flowers')->orderBy('id', 'asc')->paginate(10);
+        $query = Category::withCount('flowers');
+
+        // Filtro de búsqueda
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%");
+            });
+        }
+
+        $categories = $query->orderBy('id', 'asc')->paginate(10)->withQueryString();
+
         return view('categories.index', compact('categories'));
     }
 
@@ -28,15 +42,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
-        ], [
-            'name.required' => 'El nombre de la categoría es obligatorio.',
-            'name.unique' => 'Esta categoría ya existe.',
-            'name.max' => 'El nombre no puede exceder 255 caracteres.',
-        ]);
+        $validated = $request->validated();
 
         Category::create([
             'name' => $validated['name'],
@@ -67,15 +75,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
-        ], [
-            'name.required' => 'El nombre de la categoría es obligatorio.',
-            'name.unique' => 'Esta categoría ya existe.',
-            'name.max' => 'El nombre no puede exceder 255 caracteres.',
-        ]);
+        $validated = $request->validated();
 
         $category->update([
             'name' => $validated['name'],
