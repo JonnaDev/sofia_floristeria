@@ -20,6 +20,30 @@
                 </a>
             </div>
 
+            {{-- Barra de búsqueda --}}
+            <div class="mb-6">
+                <form action="{{ route('categories.index') }}" method="GET" class="flex gap-3">
+                    <div class="flex-1 relative">
+                        <input type="text"
+                               name="search"
+                               value="{{ request('search') }}"
+                               placeholder="Buscar por nombre o slug..."
+                               class="w-full px-4 py-3 pl-10 border border-gray-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold">
+                        Buscar
+                    </button>
+                    @if(request('search'))
+                        <a href="{{ route('categories.index') }}" class="bg-gray-300 dark:bg-zinc-700 text-gray-700 dark:text-gray-200 px-6 py-3 rounded-lg hover:bg-gray-400 dark:hover:bg-zinc-600 transition font-semibold">
+                            Limpiar
+                        </a>
+                    @endif
+                </form>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-zinc-700">
                     <thead class="bg-gray-50 dark:bg-zinc-800">
@@ -85,7 +109,7 @@
                 </table>
             </div>
 
-            {{-- Paginación estilo Flux --}}
+
             @if($categories->hasPages())
                 <div class="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-zinc-700 pt-4">
                     <div class="flex-1 flex justify-between sm:hidden">
