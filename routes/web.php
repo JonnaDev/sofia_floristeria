@@ -11,6 +11,10 @@ Route::get('/', function () {
     return view('welcome', compact('flowers'));
 })->name('home');
 
+Route::get('/catalogo', function () {
+    return view('catalog');
+})->name('catalog');
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
