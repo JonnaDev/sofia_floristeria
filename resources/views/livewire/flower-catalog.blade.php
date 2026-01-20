@@ -64,12 +64,20 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 fade-in-up">
                 @foreach($flowers as $flower)
                     <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                        <!-- Imagen -->
-                        <div class="h-64 bg-gray-100 flex items-center justify-center overflow-hidden relative">
+                        <!-- Imagen clickeable para expandir -->
+                        <div class="h-64 bg-ambar-500 flex items-center justify-center overflow-hidden relative cursor-pointer group"
+                             onclick="openImageModal(this)"
+                             data-image="{{ $flower->photo_flower_url ? asset('storage/' . $flower->photo_flower_url) : '' }}">
                             @if($flower->photo_flower_url)
                                 <img src="{{ asset('storage/' . $flower->photo_flower_url) }}"
                                      alt="{{ $flower->name }}"
-                                     class="w-full h-full object-cover">
+                                     class="w-md h-md object-cover">
+                                <!-- Overlay con icono de expandir -->
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                                    <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                    </svg>
+                                </div>
                             @else
                                 <svg class="w-24 h-24 text-pink-300" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"></path>
@@ -77,8 +85,12 @@
                             @endif
 
                             @if($flower->stock > 0)
-                                <span class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                <span class="absolute top-3 left-3 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                                     Disponible
+                                </span>
+                            @else
+                                <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    Agotado
                                 </span>
                             @endif
                         </div>
@@ -159,4 +171,59 @@
             </div>
         @endif
     </div>
+
+    <!-- Modal para expandir SOLO la imagen -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4" onclick="closeImageModal(event)">
+        <div class="relative max-w-4xl w-full" onclick="event.stopPropagation()">
+            <!-- Botón cerrar -->
+            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white hover:text-pink-400 transition-colors duration-300">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Imagen expandida -->
+            <img id="modalImage" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl">
+
+            <!-- Nombre del producto debajo -->
+            <p id="modalName" class="text-white text-center mt-4 text-lg font-semibold"></p>
+        </div>
+    </div>
+
+    <script>
+        function openImageModal(element) {
+            const imageUrl = element.dataset.image;
+
+
+            if (!imageUrl) return;
+
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+                const modalName = document.getElementById('modalName');
+
+            modalImage.src = imageUrl;
+            modalImage.alt = name;
+            modalName.textContent = name;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
 </div>

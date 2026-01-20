@@ -11,7 +11,7 @@
             <!-- Email Address -->
             <flux:input
                 name="email"
-                :label="__('Email address')"
+                :label="__('Correo Electronico')"
                 :value="old('email')"
                 type="email"
                 required
@@ -24,7 +24,7 @@
             <div class="relative">
                 <flux:input
                     name="password"
-                    :label="__('Password')"
+                    :label="__('Contraseña')"
                     type="password"
                     required
                     autocomplete="current-password"

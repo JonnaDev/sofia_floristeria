@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sofía Florería</title>
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Animación de entrada suave para toda la página */
@@ -71,13 +72,13 @@
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body>
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="flex items-center hover:scale-105 transition-transform duration-300">
-                    <img src="{{ asset('storage/flowers/logo.webp') }}" alt="Sofía Florería" class="h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
+                    <img src="{{ asset('storage/flowers/logo.png') }}" alt="Sofía Florería" class="h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
                 </a>
             </div>
 
@@ -92,29 +93,59 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-gray-700 px-5 py-2 rounded-lg shadow-lg hover:text-white hover:bg-pink-600 transition">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="bg-gray-400 text-black px-5 py-2 rounded-lg hover:text-white hover:bg-pink-600 transition">Iniciar Sesión</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="bg-pink-600 text-white px-5 py-2 rounded-lg hover:bg-pink-700 transition">Registrarse</a>
-                        @endif
+                        <a href="{{ route('login') }}" class="bg-pink-600 text-white px-5 py-2 rounded-lg hover:bg-pink-700 transition">Iniciar Sesión</a>
                     @endauth
                 @endif
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-pink-100 to-purple-100 py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-5xl font-bold text-gray-800 mb-4">Flores Frescas para Cada Momento</h1>
-            <p class="text-xl text-gray-600 mb-8">Arreglos únicos hechos con amor</p>
-            <a href="#catalogo" class="bg-pink-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-pink-700 transition inline-block">
-                Ver Catálogo
-            </a>
+    <!-- Modal de error para usuarios no autorizados -->
+@if(session('error'))
+<div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-2xl max-w-md mx-4 p-8"> 
+        <div class="text-center">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Acceso Denegado</h3>
+            <p class="text-gray-600 mb-6">{{ session('error') }}</p>
+            <button onclick="document.getElementById('errorModal').remove()" class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition font-semibold">
+                Entendido
+            </button>
         </div>
-    </section>
+    </div>
+</div>
+@endif
+
+
+
+<section class="relative bg-gradient-to-r from-pink-100 to-purple-100 py-32 min-h-[600px] overflow-hidden">
+
+    <div class="absolute inset-0 z-0">
+        <img 
+            src="{{ asset('storage/flowers/flower-background.jpeg') }}" 
+            alt="Flores de fondo" 
+            class="w-full h-full object-cover opacity-50"
+        >
+
+        <div class="absolute inset-0 bg-gradient-to-r from-pink-100/70 to-purple-100/70"></div>
+    </div>
+    
+
+    <div class="relative z-10 container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold text-pink-500 font-sans mb-4">Flores Frescas para Cada Momento</h1>
+        <p class="text-xl text-gray-600 font-sans fond-bold mb-8">Arreglos únicos hechos con amor</p>
+        <a href="{{ route('catalog') }}" class="bg-pink-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-pink-700 transition inline-block shadow-lg">
+            Ver Catálogo
+        </a>
+    </div>
+</section>
 
     <!-- Carousel de Flores -->
-    <section id="catalogo" class="py-16 bg-zinc-300 pb-20">
+    <section id="catalogo" class="py-16 bg-white pb-20">
         <div class="container mx-auto px-10">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Nuestras Flores</h2>
 
@@ -122,7 +153,7 @@
                 <div class="overflow-x-auto pb-6">
                     <div class="flex gap-6 min-w-max">
                         @foreach($flowers as $flower)
-                            <div class="flower-card bg-gray-100 rounded-xl shadow-lg overflow-hidden w-80 flex-shrink-0">
+                            <div class="flower-card bg-white rounded-xl shadow-xl overflow-hidden w-80 flex-shrink-0">
                                 <div class="h-64 bg-white flex items-center justify-center overflow-hidden">
                                     @if($flower->photo_flower_url)
                                         <img src="{{ asset('storage/' . $flower->photo_flower_url) }}"
@@ -152,7 +183,7 @@
 
                                     <div class="flex justify-between items-center">
                                         <span class="text-2xl font-bold text-pink-500">${{ number_format($flower->price, 0, ',', '.') }}</span>
-                                        <span class="text-sm text-pink-500">Stock: {{ $flower->stock }}</span>
+                                        <span class="text-md font-bold text-pink-500">Stock: {{ $flower->stock }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -344,11 +375,9 @@
                 <div class="flex flex-col items-start ml-8">
                     <h4 class="text-lg font-bold mb-4">Navegación</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition text-sm">Inicio</a></li>
+                        <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-white transition text-sm">Inicio</a></li>
                         <li><a href="#catalogo" class="text-gray-300 hover:text-white transition text-sm">Productos</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition text-sm">Categorías</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition text-sm">Favoritos</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition text-sm">Carrito</a></li>
+                        <li><a href="{{ route('catalog') }}" class="text-gray-300 hover:text-white transition text-sm">Categorías</a></li>
                     </ul>
                 </div>
 

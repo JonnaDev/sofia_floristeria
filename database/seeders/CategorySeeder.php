@@ -29,7 +29,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $categoryName) {
-            Category::firstOrCreate(
+            Category::updateOrCreate(
                 ['slug' => Str::slug($categoryName)],
                 ['name' => $categoryName]
             );

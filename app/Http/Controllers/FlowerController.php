@@ -19,7 +19,6 @@ class FlowerController extends Controller
         $query = Flower::with('categories');
 
         // Filtro de búsqueda
-        // El filtro funciona de manera manual con ORM ELOQUENT
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -28,7 +27,8 @@ class FlowerController extends Controller
                   ->orWhere('price', 'like', "%{$search}%");
             });
         }
-        // Definir el paginado en base a los registros de $data->query(ORM ELOQUENT SQL)
+
+        // Definir el paginado.
         $data = $query->orderBy('id', 'asc')->paginate(9)->withQueryString();
 
         return view('flowers.index', compact('data'));
@@ -69,6 +69,7 @@ class FlowerController extends Controller
         ]);
 
         // Asociar categorías
+
         $flower->categories()->attach($validated['category_ids']);
 
         // Redirigir con mensaje de éxito

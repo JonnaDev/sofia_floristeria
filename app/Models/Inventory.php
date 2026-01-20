@@ -14,7 +14,7 @@ class Inventory extends Model
 
     protected $table = 'inventories';
 
-    // Relación inverse one-to-one con flower
+    // Relación inverse one-to-one con flower, de "pertenece"
     public function flower()
     {
         return $this->belongsTo(Flower::class);

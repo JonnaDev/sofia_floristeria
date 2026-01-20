@@ -16,11 +16,11 @@ Route::get('/catalogo', function () {
 })->name('catalog');
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'admin'])
     ->name('dashboard');
 
-// Rutas protegidas por autenticación
-Route::middleware(['auth', 'verified'])->group(function () {
+    // Rutas protegidas por autenticación y solo para Admin
+    Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('flowers', FlowerController::class);
     Route::resource('categories', CategoryController::class);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRestockRequest;
 use App\Models\Flower;
 use App\Models\Restock;
 use Illuminate\Http\Request;
@@ -34,20 +35,13 @@ class RestockController extends Controller
     /**
      * Procesar el reabastecimiento de una flor
      */
-    public function store(Request $request, Flower $flower)
+    public function store(StoreRestockRequest $request, Flower $flower)
     {
-        $validated = $request->validate([
-            'added_quantity' => 'required|integer|min:1|max:1000',
-            'notes' => 'nullable|string|max:500',
-        ], [
-            'added_quantity.required' => 'La cantidad a agregar es obligatoria.',
-            'added_quantity.integer' => 'La cantidad debe ser un número entero.',
-            'added_quantity.min' => 'La cantidad mínima es 1.',
-            'added_quantity.max' => 'La cantidad máxima es 1000.',
-            'notes.max' => 'Las notas no pueden exceder 500 caracteres.',
-        ]);
+        $validated = $request->validated;
 
-        DB::transaction(function () use ($flower, $validated) {
+
+        DB::transaction(function () use ($flower, $validated) 
+        {
             $previousStock = $flower->stock;
             $addedQuantity = $validated['added_quantity'];
             $newStock = $previousStock + $addedQuantity;
