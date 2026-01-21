@@ -24,7 +24,6 @@ class UpdateCategoryRequest extends FormRequest
     {
         return 
         [
-            //XD
             'name' => 'required|string|max:255|unique:categories,id,' . $category->id
         ];
     }

@@ -37,7 +37,7 @@ class RestockController extends Controller
      */
     public function store(StoreRestockRequest $request, Flower $flower)
     {
-        $validated = $request->validated;
+        $validated = $request->validated();
 
 
         DB::transaction(function () use ($flower, $validated) 
