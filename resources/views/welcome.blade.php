@@ -147,9 +147,9 @@
     <!-- Carousel de Flores -->
     <section id="catalogo" class="py-16 bg-white pb-20">
         <div class="container mx-auto px-10">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Nuestras Flores</h2>
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Nuestras Flores Destacadas</h2>
 
-            @if($flowers->count() > 0)
+            @if($flowers->count() > 0) 
                 <div class="overflow-x-auto pb-6">
                     <div class="flex gap-6 min-w-max">
                         @foreach($flowers as $flower)

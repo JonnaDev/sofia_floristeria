@@ -5,9 +5,16 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RestockController;
 use App\Models\Flower;
 use Illuminate\Support\Facades\Route;
+/*
+Me encanta esta vaina, filtrando SQL con eloquent mediante ORM  de forma sencilla.
+*/
 
 Route::get('/', function () {
-    $flowers = Flower::with('categories')->orderBy('id', 'desc')->limit(6)->get();
+    $flowers = Flower::with('categories')
+    ->where('price', '>=', 150000)
+    ->orderBy('id', 'desc')
+    ->limit(6)
+    ->get();
     return view('welcome', compact('flowers'));
 })->name('home');
 
