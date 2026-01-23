@@ -64,7 +64,7 @@
         <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="flex items-center hover:scale-105 transition-transform duration-300">
-                    <img src="{{ asset('storage/flowers/logo.webp') }}" alt="Sofía Florería" class="h-16 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
+                    <img src="{{ asset('storage/flowers/logo.png') }}" alt="Sofía Florería" class="h-20 w-min drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
                 </a>
             </div>
 
