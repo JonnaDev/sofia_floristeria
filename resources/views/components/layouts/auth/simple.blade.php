@@ -10,7 +10,7 @@
                     <div class="flex items-center justify-center">
                         <x-app-logo-icon class="h-50 w-50 drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]" />
                     </div>
-                    <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
+                    <span class="sr-only">{{ config('app.name', 'Sofia Florireria') }}</span>
                 </a>
                 <div class="flex flex-col gap-6">
                     {{ $slot }}
