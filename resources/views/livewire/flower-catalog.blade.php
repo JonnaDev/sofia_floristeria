@@ -26,9 +26,8 @@
                 @foreach($categories as $category)
                     <button
                         wire:click="filterByCategory({{ $category->id }})"
-                        class="px-4 py-2 rounded-full text-sm font-semibold transition {{ $selectedCategory == $category->id ? 'bg-pink-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+                        class="px-4 py-2 rounded-full text-sm font-semibold transition {{ $selectedCategory == $category->id ? 'bg-pink-400 text-white shadow-lg shadow-pink-500/50' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
                         {{ $category->name }}
-                        <span class="ml-1 text-xs opacity-75">({{ $category->flowers_count }})</span>
                     </button>
                 @endforeach
             </div>
@@ -116,20 +115,19 @@
 
                             <!-- Precio y stock -->
                             <div class="flex justify-between items-center">
-                                <span class="text-2xl font-bold text-pink-600">
+                                <span class="text-xl font-bold text-pink-600">
                                     ${{ number_format($flower->price, 0, ',', '.') }}
                                 </span>
-                                <span class="text-sm text-gray-500">
+                                <span class="text-sm text-pink-600 font-bold">
                                     Stock: {{ $flower->stock }}
                                 </span>
                             </div>
-
                             <!-- Botón de contacto -->
-                            <a href="https://wa.me/573177261647?text=Hola,%20me%20interesa%20{{ urlencode($flower->name) }}%20por%20${{ number_format($flower->price, 0, ',', '.') }}"
-                               target="_blank"
-                               class="mt-4 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition text-center block font-semibold">
-                                Pedir por WhatsApp
-                            </a>
+                                <a href="https://wa.me/573177261647?text=Hola,%20nuevo%20pedido%20desde%20la%20web%20{{ urlencode(url('/')) }}%0A%0AMe%20interesa%20{{ urlencode($flower->name) }}%20por%20${{ number_format($flower->price, 0, ',', '.') }}"
+                                   target="_blank"
+                                   class="mt-4 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition text-center block font-semibold">
+                                    Pedir por WhatsApp
+                                </a>
                         </div>
                     </div>
                 @endforeach
