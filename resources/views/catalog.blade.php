@@ -55,33 +55,75 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
+        /* Mobile menu animation - ESTO ES LO QUE FALTABA */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
 
-
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="flex items-center">
-                <a href="{{ route('home') }}" class="flex items-center hover:scale-105 transition-transform duration-300">
-                    <img src="{{ asset('storage/flowers/logo.png') }}" alt="Sofía Florería" class="h-20 w-min drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
-                </a>
+        <nav class="container mx-auto px-4 py-4">
+            <!-- Desktop Navigation -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="{{ route('home') }}" class="flex items-center hover:scale-105 transition-transform duration-300">
+                        <img src="{{ asset('storage/flowers/logo.png') }}" alt="Sofía Florería" class="h-16 md:h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-lg">
+                    <a href="{{ route('home') }}" class="text-pink-500 hover:text-pink-600 transition font-semibold">Inicio</a>
+                    <a href="{{ route('catalog') }}" class="text-pink-500 hover:text-pink-600 transition font-semibold">Catálogo</a>
+                </div>
+
+                <!-- Auth Links Desktop -->
+                <div class="hidden md:flex items-center gap-6">
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="text-gray-700 px-5 py-2 rounded-lg shadow-lg hover:text-white hover:bg-pink-600 transition">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="bg-pink-600 text-white px-5 py-2 rounded-lg hover:bg-pink-700 transition">Iniciar Sesión</a>
+                        @endauth
+                    @endif
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-pink-500 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
 
-            <div class="flex item-center gap-8">
-                <a href="{{ route('home') }}" class="text-lg text-pink-600 hover:text-pink-600 transition font-semibold">Inicio</a>
-                <a href="{{ route('catalog') }}" class="text-lg text-pink-600 font-semibold">Catálogo</a>
-            </div>
-
-            <div class="flex items-center gap-6">
-
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-gray-700 px-5 py-2 rounded-lg shadow-lg hover:text-white hover:bg-pink-600 transition">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="bg-gray-400 text-black px-5 py-2 rounded-lg hover:text-white hover:bg-pink-600 transition">Iniciar Sesión</a>
-                    @endauth
-                @endif
+            <!-- Mobile Menu Overlay -->
+            <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50 md:hidden">
+                <div class="p-6">
+                    <button id="close-menu-btn" class="absolute top-4 right-4 text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <div class="mt-8 flex flex-col gap-6">
+                        <a href="{{ route('home') }}" class="text-pink-500 hover:text-pink-600 transition font-semibold text-lg">Inicio</a>
+                        <a href="{{ route('catalog') }}" class="text-pink-500 hover:text-pink-600 transition font-semibold text-lg">Catálogo</a>
+                        @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="text-gray-700 px-5 py-2 rounded-lg shadow-lg hover:text-white hover:bg-pink-600 transition text-center">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="bg-pink-600 text-white px-5 py-2 rounded-lg hover:bg-pink-700 transition text-center">Iniciar Sesión</a>
+                            @endauth
+                        @endif
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -90,22 +132,20 @@
     @livewire('flower-catalog')
 
     <!-- Footer -->
-    <footer class="bg-gray-700 text-white py-12">
-        <div class="container mx-auto px-16">
-            <!-- 4-column grid layout -->
+    <footer class="bg-gray-700 text-white py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-16">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-
-                <!-- Column 1: Company Info -->
+                <!-- Logo y descripción -->
                 <div class="flex flex-col items-start">
-                    <h3 class="text-2xl font-bold mb-4">Sofía Floristería</h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Sofía Floristería</h3>
+                    <p class="text-gray-300 font-family-arial-sans text-sm leading-relaxed">
                         Flores que hacen inolvidables tus momentos más especiales.
                     </p>
                 </div>
 
-                <!-- Column 2: Navigation -->
-                <div class="flex flex-col items-start ml-8">
-                    <h4 class="text-lg font-bold mb-4">Navegación</h4>
+                <!-- Navegación -->
+                <div class="flex flex-col items-start md:ml-8">
+                    <h4 class="text-base md:text-lg font-bold mb-4">Navegación</h4>
                     <ul class="space-y-2">
                         <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-white transition text-sm">Inicio</a></li>
                         <li><a href="{{ route('catalog') }}" class="text-gray-300 hover:text-white transition text-sm">Catálogo</a></li>
@@ -113,16 +153,16 @@
                     </ul>
                 </div>
 
-                <!-- Column 3: Contact -->
-                <div class="flex flex-col items-start ml-8">
-                    <h4 class="text-lg font-bold mb-4">Contacto</h4>
+                <!-- Contacto -->
+                <div class="flex flex-col items-start md:ml-8">
+                    <h4 class="text-base md:text-lg font-bold mb-4">Contacto</h4>
                     <ul class="space-y-2">
                         <li class="flex items-center gap-2 text-gray-300 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                             </svg>
-                            <a href="mailto:fraysury18@gmail.com" class="hover:text-white transition">fraysury18@gmail.com</a>
+                            <a href="mailto:fraysury18@gmail.com" class="hover:text-white transition break-all">fraysury18@gmail.com</a>
                         </li>
                         <li class="flex items-center gap-2 text-gray-300 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -145,10 +185,10 @@
                     </ul>
                 </div>
 
-                <!-- Column 4: Social Media -->
-                <div class="flex flex-col items-start ml-8">
-                    <h4 class="text-lg font-bold mb-4">Síguenos</h4>
-                    <div class="flex flex-col gap-3">
+                <!-- Redes Sociales y Métodos de Pago -->
+                <div class="flex flex-col items-start md:ml-8">
+                    <h4 class="text-base md:text-lg font-bold mb-4">Síguenos</h4>
+                    <div class="flex flex-col gap-3 mb-6">
                         <a href="https://web.facebook.com/people/Floristería-Sofía/100064982413493/" target="_blank"
                            class="flex items-center gap-3 text-gray-300 hover:text-white transition group">
                             <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center group-hover:bg-blue-600 transition">
@@ -168,10 +208,45 @@
                             <span class="text-sm font-semibold">Instagram</span>
                         </a>
                     </div>
+
+                    <!-- Métodos de Pago -->
+                    <div class="mt-4">
+                        <h4 class="text-base md:text-lg font-bold mb-4">Métodos de Pago</h4>
+                        <div class="bg-white rounded-lg p-4 shadow-lg">
+                            <div class="grid grid-cols-2 gap-3">
+                                <!-- Nequi -->
+                                <div class="flex items-center justify-center p-2 bg-gray-50 rounded">
+                                    <img src="{{ asset('storage/welcome/nequi.png') }}" 
+                                         alt="Nequi" 
+                                         class="h-8 w-auto object-contain">
+                                </div>
+                                <!-- Daviplata -->
+                                <div class="flex items-center justify-center p-2 bg-gray-50 rounded">
+                                    <img src="{{ asset('storage/welcome/daviplata.png') }}" 
+                                         alt="Daviplata" 
+                                         class="h-8 w-auto object-contain">
+                                </div>
+                                <!-- Transferencia -->
+                                <div class="flex items-center justify-center p-2 bg-gray-50 rounded col-span-2">
+                                    <svg class="w-8 h-8 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                    </svg>
+                                    <span class="ml-2 text-sm font-semibold text-gray-700">Transferencia</span>
+                                </div>
+                                <!-- Efectivo -->
+                                <div class="flex items-center justify-center p-2 bg-gray-50 rounded col-span-2">
+                                    <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                                    </svg>
+                                    <span class="ml-2 text-sm font-semibold text-gray-700">Efectivo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Copyright Line -->
+            <!-- Copyright -->
             <div class="border-t border-gray-600 mt-8 pt-6">
                 <p class="text-center text-gray-400 text-sm">
                     © 2026 Sofía Floristería. Todos los derechos reservados.
@@ -180,6 +255,29 @@
         </div>
     </footer>
 
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+
     @livewireScripts
+
 </body>
 </html>
