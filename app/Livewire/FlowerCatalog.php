@@ -12,8 +12,8 @@ class FlowerCatalog extends Component
     public $categories;
     public $selectedCategory = null;
     public $search = '';
-    public $perPage = 20;
-    public $loadedCount = 20;
+    public $perPage = 10;
+    public $loadedCount = 10;
     public $hasMore = true;
 
     public function mount()

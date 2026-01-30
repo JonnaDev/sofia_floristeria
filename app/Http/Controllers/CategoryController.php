@@ -26,7 +26,7 @@ class CategoryController extends Controller
             });
         }
 
-        $categories = $query->orderBy('id', 'asc')->paginate(10)->withQueryString();
+        $categories = $query->orderBy('id', 'asc')->paginate(9)->withQueryString();
 
         return view('categories.index', compact('categories'));
     }
