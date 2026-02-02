@@ -21,8 +21,15 @@ class CategoryController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
+                // Logica para busqueda integer con ID, ideal para FLUX, feo pero funciona y eficiente.
+                if(is_numeric($search)){
+                    $q->orWhere('id', (int) $search);
+                }  
+                else {
+
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('slug', 'like', "%{$search}%");
+                    }
             });
         }
 

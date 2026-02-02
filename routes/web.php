@@ -22,9 +22,10 @@ Route::get('/catalogo', function () {
     return view('catalog');
 })->name('catalog');
 
-Route::view('dashboard', 'dashboard')
+Route::get('/dashboard', [FlowerController::class, 'indexDashboard'])
     ->middleware(['auth', 'verified', 'admin'])
     ->name('dashboard');
+
 
     // Rutas protegidas por autenticación y solo para Admin
     Route::middleware(['auth', 'verified', 'admin'])->group(function () {

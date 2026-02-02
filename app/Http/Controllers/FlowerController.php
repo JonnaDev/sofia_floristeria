@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFlowerRequest;
 use App\Http\Requests\UpdateFlowerRequest;
 use App\Models\Flower;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -14,25 +15,52 @@ class FlowerController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function indexDashboard()
+    {
+        $flowersCount    = Flower::count();
+        $categoriesCount = Category::count();
+        $usersCount      = User::count();
+    
+        return view('dashboard', compact(
+            'flowersCount',
+            'categoriesCount',
+            'usersCount'
+        ));
+    }
+
     public function index(Request $request)
     {
         $query = Flower::with('categories');
 
-        // Filtro de búsqueda
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
+
+            $query->where(function ($q) use ($search) {
+
+                // Busqueda por ID en %search% para formato mas rapido.
+                if (is_numeric($search)) {
+                    $q->orWhere('id', (int) $search);
+                }
+                else {
+                $q->orWhere('name', 'like', "%{$search}%")
                   ->orWhere('description', 'like', "%{$search}%")
                   ->orWhere('price', 'like', "%{$search}%");
-            });
+                    } 
+                });
+
         }
 
-        // Definir el paginado.
-        $data = $query->orderBy('id', 'asc')->paginate(9)->withQueryString();
+        $data = $query
+            ->orderBy('id', 'desc') 
+            ->paginate(9)
+            ->withQueryString();
 
         return view('flowers.index', compact('data'));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
