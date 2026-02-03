@@ -179,24 +179,38 @@
     @endif
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-r from-pink-100 to-purple-100 py-16 md:py-32 min-h-[400px] md:min-h-[600px] overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img 
-                src="{{ asset('images/flower-background.png') }}" 
-                alt="Flores de fondo" 
-                class="w-full h-full object-cover opacity-50"
-            >
-            <div class="absolute inset-0 bg-gradient-to-r from-pink-100/70 to-purple-100/70"></div>
-        </div>
-        
-        <div class="relative z-10 container mx-auto px-4 text-center">
-            <h1 class="text-2xl md:text-5xl font-bold text-pink-500 font-sans mb-4">Flores Frescas para Cada Momento</h1>
-            <p class="text-lg md:text-xl text-black font-sans mb-8">Arreglos únicos hechos con amor</p>
-            <a href="{{ route('catalog') }}" class="bg-pink-600 text-white px-6 md:px-8 py-3 rounded-lg text-base md:text-lg hover:bg-pink-700 transition inline-block shadow-lg">
-                Ver Catálogo
-            </a>
-        </div>
-    </section>
+    <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+
+    <img
+        src="{{ asset('images/flower-background.png') }}"
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+    >
+
+    <!-- Frosted-glass card centrado -->
+    <div class="relative z-10 w-full max-w-2xl mx-auto px-6 md:px-12 py-12 md:py-20 rounded-2xl text-center"
+         style="background: rgba(100, 60, 70, 0.52); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);">
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4" style="font-family: serif;">
+            Bienvenido a Sofía Floristería
+        </h1>
+
+        <p class="text-white text-base md:text-lg mb-2 opacity-90">
+            Explora nuestros productos y disfruta una gran variedad.
+        </p>
+        <p class="text-white text-sm md:text-base mb-8 opacity-80">
+            ¡Haz tu pedido hoy y alegra tu día!
+        </p>
+
+        <a href="{{ route('catalog') }}"
+           class="inline-flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white font-semibold px-7 py-3 rounded-full transition shadow-lg text-base md:text-lg">
+            Ver productos
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+            </svg>
+        </a>
+    </div>
+</section>
 
     <!-- Carousel de Flores -->
     <section id="catalogo" class="py-12 md:py-16 bg-white">
