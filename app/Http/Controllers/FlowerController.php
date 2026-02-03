@@ -48,7 +48,6 @@ class FlowerController extends Controller
                   ->orWhere('price', 'like', "%{$search}%");
                     } 
                 });
-
         }
 
         $data = $query

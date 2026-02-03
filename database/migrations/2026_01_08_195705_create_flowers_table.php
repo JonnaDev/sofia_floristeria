@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('photo_flower_url');
             $table->integer('stock');
             $table->timestamps();

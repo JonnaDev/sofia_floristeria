@@ -75,7 +75,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <a href="{{ route('home') }}" class="flex items-center hover:scale-105 transition-transform duration-300">
-                        <img src="{{ asset('storage/flowers/logo.png') }}" alt="Sofía Florería" class="h-16 md:h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
+                        <img src="{{ asset('images/logo.png') }}" alt="Sofía Florería" class="h-16 md:h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
                     </a>
                 </div>
 
@@ -216,13 +216,13 @@
                             <div class="grid grid-cols-2 gap-3">
                                 <!-- Nequi -->
                                 <div class="flex items-center justify-center p-2 bg-gray-50 rounded">
-                                    <img src="{{ asset('storage/welcome/nequi.png') }}" 
+                                    <img src="{{ asset('images/nequi.png') }}" 
                                          alt="Nequi" 
                                          class="h-8 w-auto object-contain">
                                 </div>
                                 <!-- Daviplata -->
                                 <div class="flex items-center justify-center p-2 bg-gray-50 rounded">
-                                    <img src="{{ asset('storage/welcome/daviplata.png') }}" 
+                                    <img src="{{ asset('images/daviplata.png') }}" 
                                          alt="Daviplata" 
                                          class="h-8 w-auto object-contain">
                                 </div>

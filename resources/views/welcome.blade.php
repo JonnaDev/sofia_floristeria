@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sofía Florería</title>
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Animación de entrada suave para toda la página */
@@ -105,7 +105,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <a href="{{ route('home') }}" class="flex items-center hover:scale-105 transition-transform duration-300">
-                        <img src="{{ asset('storage/flowers/logo.png') }}" alt="Sofía Florería" class="h-16 md:h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
+                        <img src="{{ asset('images/logo.png') }}" alt="Sofía Florería" class="h-16 md:h-20 w-auto drop-shadow-lg hover:drop-shadow-[0_0_15px_rgba(236,72,153,0.6)]">
                     </a>
                 </div>
 
@@ -182,7 +182,7 @@
     <section class="relative bg-gradient-to-r from-pink-100 to-purple-100 py-16 md:py-32 min-h-[400px] md:min-h-[600px] overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img 
-                src="{{ asset('storage/flowers/flower-background.jpeg') }}" 
+                src="{{ asset('images/flower-background.png') }}" 
                 alt="Flores de fondo" 
                 class="w-full h-full object-cover opacity-50"
             >
@@ -283,7 +283,7 @@
                 <!-- Review Card 1 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('storage/welcome/review1.png') }}" 
+                        <img src="{{ asset('images/review1.png') }}" 
                              alt="Cliente satisfecho" 
                              class="w-full h-full object-cover">
                     </div>
@@ -313,7 +313,7 @@
                 <!-- Review Card 2 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('storage/welcome/review2.png') }}" 
+                        <img src="{{ asset('images/review2.png') }}" 
                              alt="Cliente satisfecho" 
                              class="w-full h-full object-cover">
                     </div>
@@ -343,7 +343,7 @@
                 <!-- Review Card 3 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('storage/welcome/review3.png') }}" 
+                        <img src="{{ asset('images/review3.png') }}" 
                              alt="Cliente satisfecho" 
                              class="w-full h-full object-cover">
                     </div>
@@ -609,13 +609,13 @@
                             <div class="grid grid-cols-2 gap-3">
                                 <!-- Nequi -->
                                 <div class="flex items-center justify-center p-2 bg-gray-50 rounded">
-                                    <img src="{{ asset('storage/welcome/nequi.png') }}" 
+                                    <img src="{{ asset('images/nequi.png') }}" 
                                          alt="Nequi" 
                                          class="h-8 w-auto object-contain">
                                 </div>
                                 <!-- Daviplata -->
                                 <div class="flex items-center justify-center p-2 bg-gray-50 rounded">
-                                    <img src="{{ asset('storage/welcome/daviplata.png') }}" 
+                                    <img src="{{ asset('images/daviplata.png') }}" 
                                          alt="Daviplata" 
                                          class="h-8 w-auto object-contain">
                                 </div>

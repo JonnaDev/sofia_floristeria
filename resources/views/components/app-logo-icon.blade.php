@@ -1,1 +1,1 @@
-<img src="{{ asset('storage/flowers/logo.png') }}" alt="Sofía Florería" {{ $attributes }} />
+<img src="{{ asset('images/logo.png') }}" alt="Sofía Florería" {{ $attributes }} />

@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin@sofiaflores.com'], 
             [
                 'name' => 'Administrador',
-                'password' => Hash::make('adminsofiafloresFS#'),
+                'password' => Hash::make('fray$sury$admin2026'),
                 'role' => 'Admin',
             ]
         );
@@ -38,6 +38,6 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
         ]);
 
-        $this->command->info('✓ Usuarios y categorías creados exitosamente!');
+        $this->command->info('Usuarios y categorías creados exitosamente!');
     }
 }
