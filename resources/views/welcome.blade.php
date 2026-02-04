@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sofía Florería</title>
-    <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Animación de entrada suave para toda la página */
