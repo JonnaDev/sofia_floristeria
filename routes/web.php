@@ -5,9 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RestockController;
 use App\Models\Flower;
 use Illuminate\Support\Facades\Route;
-/*
-Me encanta esta vaina, filtrando SQL con eloquent mediante ORM  de forma sencilla.
-*/
+
 
 Route::get('/', function () {
     $flowers = Flower::with('categories')
