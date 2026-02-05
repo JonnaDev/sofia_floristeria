@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Catálogo - Sofía Florería</title>
+    <title>Catálogo - Sofía Florería - Neiva</title>
     <script src="https://cdn.tailwindcss.com"></script>
     @livewireStyles
     <style>
