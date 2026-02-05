@@ -3,9 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Catálogo - Sofía Florería - Neiva</title>
+    <meta name="description" content="Explora nuestro catálogo completo de arreglos florales en Neiva. Flores naturales para cumpleaños, amor, condolencias y ocasiones especiales. Pedidos por WhatsApp.">
+    <title>Catálogo - Sofía Floristería - Neiva | Arreglos Florales</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://sofianeivafloristeria.com/catalogo">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sofianeivafloristeria.com/catalogo">
+    <meta property="og:title" content="Catálogo - Sofía Floristería - Neiva">
+    <meta property="og:description" content="Explora nuestro catálogo completo de arreglos florales en Neiva. Flores naturales para cumpleaños, amor, condolencias y ocasiones especiales.">
+    <meta property="og:image" content="https://sofianeivafloristeria.com/images/logo.png">
+    <meta property="og:locale" content="es_CO">
+    <meta property="og:site_name" content="Sofía Floristería">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Catálogo - Sofía Floristería - Neiva">
+    <meta name="twitter:description" content="Explora nuestro catálogo completo de arreglos florales en Neiva.">
+    <meta name="twitter:image" content="https://sofianeivafloristeria.com/images/logo.png">
+
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     @livewireStyles
     <style>
         /* Animación de entrada suave para toda la página */
@@ -190,7 +210,9 @@
                 <div class="flex flex-col items-start md:ml-8">
                     <h4 class="text-base md:text-lg font-bold mb-4">Síguenos</h4>
                     <div class="flex flex-col gap-3 mb-6">
-                        <a href="https://web.facebook.com/people/Floristería-Sofía/100064982413493/" target="_blank"
+                        <a href="https://web.facebook.com/people/Floristería-Sofía/100064982413493/"
+                           target="_blank"
+                           rel="noopener noreferrer"
                            class="flex items-center gap-3 text-gray-300 hover:text-white transition group">
                             <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center group-hover:bg-blue-600 transition">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -199,7 +221,9 @@
                             </div>
                             <span class="text-sm font-semibold">Facebook</span>
                         </a>
-                        <a href="https://www.instagram.com/floristeriasofianeiva" target="_blank"
+                        <a href="https://www.instagram.com/floristeriasofianeiva"
+                           target="_blank"
+                           rel="noopener noreferrer"
                            class="flex items-center gap-3 text-gray-300 hover:text-white transition group">
                             <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-orange-600 transition">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
