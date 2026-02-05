@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales. Compra fácil por WhatsApp.">
     <title>Sofía Florería - Neiva</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -192,7 +193,7 @@
          style="background: rgba(100, 60, 70, 0.52); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);">
 
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4" style="font-family: serif;">
-            Bienvenido a Sofía Floristería
+            Bienvenido a Sofía Floristería Neiva
         </h1>
 
         <p class="text-white text-base md:text-lg mb-2 opacity-90">
@@ -215,7 +216,7 @@
     <!-- Carousel de Flores -->
     <section id="catalogo" class="py-12 md:py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8 md:mb-12">Nuestras Flores Destacadas</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8 md:mb-12">Arreglos florales en Neiva más vendidos</h2>
 
             @if($flowers->count() > 0) 
                 <div class="relative">

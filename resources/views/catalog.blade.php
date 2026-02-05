@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catálogo - Sofía Florería - Neiva</title>
     <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     @livewireStyles
     <style>
         /* Animación de entrada suave para toda la página */
@@ -137,7 +138,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <!-- Logo y descripción -->
                 <div class="flex flex-col items-start">
-                    <h3 class="text-xl md:text-2xl font-bold mb-4">Sofía Floristería</h3>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4">Sofía Floristería - Neiva</h3>
                     <p class="text-gray-300 font-family-arial-sans text-sm leading-relaxed">
                         Flores que hacen inolvidables tus momentos más especiales.
                     </p>
@@ -149,7 +150,7 @@
                     <ul class="space-y-2">
                         <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-white transition text-sm">Inicio</a></li>
                         <li><a href="{{ route('catalog') }}" class="text-gray-300 hover:text-white transition text-sm">Catálogo</a></li>
-                        <li><a href="{{ route('home') }}#catalogo" class="text-gray-300 hover:text-white transition text-sm">Productos</a></li>
+                        <li><a href="{{ route('home') }}#catalogo" class="text-gray-300 hover:text-white transition text-sm">Productos Destacados</a></li>
                     </ul>
                 </div>
 
@@ -249,7 +250,7 @@
             <!-- Copyright -->
             <div class="border-t border-gray-600 mt-8 pt-6">
                 <p class="text-center text-gray-400 text-sm">
-                    © 2026 Sofía Floristería. Todos los derechos reservados.
+                    © 2026 Sofía Floristería Neiva. Todos los derechos reservados.
                 </p>
             </div>
         </div>
