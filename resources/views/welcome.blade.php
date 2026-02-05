@@ -14,7 +14,7 @@
     <meta property="og:url" content="https://sofianeivafloristeria.com/">
     <meta property="og:title" content="Sofía Floristería - Neiva | Flores a Domicilio">
     <meta property="og:description" content="Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales. Compra fácil por WhatsApp.">
-    <meta property="og:image" content="https://sofianeivafloristeria.com/images/logo.png">
+    <meta property="og:image" content="https://sofianeivafloristeria.com/images/logo.WebP">
     <meta property="og:locale" content="es_CO">
     <meta property="og:site_name" content="Sofía Floristería">
 
@@ -22,7 +22,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Sofía Floristería - Neiva | Flores a Domicilio">
     <meta name="twitter:description" content="Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales.">
-    <meta name="twitter:image" content="https://sofianeivafloristeria.com/images/logo.png">
+    <meta name="twitter:image" content="https://sofianeivafloristeria.com/images/logo.WebP">
 
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -202,7 +202,7 @@
     <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
 
     <img
-        src="{{ asset('images/flower-background.png') }}"
+        src="{{ asset('images/flower-background.WebP') }}"
         alt=""
         class="absolute inset-0 w-full h-full object-cover"
     >
@@ -317,7 +317,7 @@
                 <!-- Review Card 1 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review1.png') }}"
+                        <img src="{{ asset('images/review1.WebP') }}"
                              alt="Testimonio de María González - Cliente satisfecha con arreglo floral"
                              class="w-full h-full object-cover">
                     </div>
@@ -347,7 +347,7 @@
                 <!-- Review Card 2 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review2.png') }}"
+                        <img src="{{ asset('images/review2.WebP') }}"
                              alt="Testimonio de Carlos Ramírez - Cliente satisfecho con entrega puntual"
                              class="w-full h-full object-cover">
                     </div>
@@ -377,7 +377,7 @@
                 <!-- Review Card 3 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review3.png') }}"
+                        <img src="{{ asset('images/review3.WebP') }}"
                              alt="Testimonio de Laura Martínez - Cliente verificada con arreglo de aniversario"
                              class="w-full h-full object-cover">
                     </div>
@@ -739,6 +739,7 @@
 
     <!-- Schema.org JSON-LD Structured Data for Local Business SEO -->
     <script type="application/ld+json">
+    @verbatim
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
@@ -792,6 +793,7 @@
         }
       }
     }
+    @endverbatim
     </script>
 </body>
 </html>
