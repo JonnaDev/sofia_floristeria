@@ -3,8 +3,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sofía Florería</title>
-    <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
+    <meta name="description" content="Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales. Compra fácil por WhatsApp.">
+    <title>Sofía Floristería - Neiva | Flores a Domicilio</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://sofianeivafloristeria.com/">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sofianeivafloristeria.com/">
+    <meta property="og:title" content="Sofía Floristería - Neiva | Flores a Domicilio">
+    <meta property="og:description" content="Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales. Compra fácil por WhatsApp.">
+    <meta property="og:image" content="https://sofianeivafloristeria.com/images/logo.png">
+    <meta property="og:locale" content="es_CO">
+    <meta property="og:site_name" content="Sofía Floristería">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sofía Floristería - Neiva | Flores a Domicilio">
+    <meta name="twitter:description" content="Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales.">
+    <meta name="twitter:image" content="https://sofianeivafloristeria.com/images/logo.png">
+
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Animación de entrada suave para toda la página */
@@ -192,7 +212,7 @@
          style="background: rgba(100, 60, 70, 0.52); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);">
 
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4" style="font-family: serif;">
-            Bienvenido a Sofía Floristería
+            Bienvenido a Sofía Floristería Neiva
         </h1>
 
         <p class="text-white text-base md:text-lg mb-2 opacity-90">
@@ -215,7 +235,7 @@
     <!-- Carousel de Flores -->
     <section id="catalogo" class="py-12 md:py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8 md:mb-12">Nuestras Flores Destacadas</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8 md:mb-12">Arreglos florales en Neiva más vendidos</h2>
 
             @if($flowers->count() > 0) 
                 <div class="relative">
@@ -297,8 +317,8 @@
                 <!-- Review Card 1 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review1.png') }}" 
-                             alt="Cliente satisfecho" 
+                        <img src="{{ asset('images/review1.png') }}"
+                             alt="Testimonio de María González - Cliente satisfecha con arreglo floral"
                              class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
@@ -327,8 +347,8 @@
                 <!-- Review Card 2 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review2.png') }}" 
-                             alt="Cliente satisfecho" 
+                        <img src="{{ asset('images/review2.png') }}"
+                             alt="Testimonio de Carlos Ramírez - Cliente satisfecho con entrega puntual"
                              class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
@@ -357,8 +377,8 @@
                 <!-- Review Card 3 -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
                     <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review3.png') }}" 
-                             alt="Cliente satisfecho" 
+                        <img src="{{ asset('images/review3.png') }}"
+                             alt="Testimonio de Laura Martínez - Cliente verificada con arreglo de aniversario"
                              class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
@@ -520,12 +540,13 @@
     <!-- Sección de Llamado a Acción WhatsApp -->
     <section class="py-12 md:py-20 bg-gradient-to-r from-pink-100 to-purple-100">
         <div class="container mx-auto px-4 text-center max-w-3xl">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6">¿Listo para hacer tu pedido?</h1>
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6">¿Listo para hacer tu pedido?</h2>
             <p class="text-base md:text-xl text-gray-600 mb-8 leading-relaxed px-4">
                 Estamos listos para ayudarte a sorprender con flores. Escríbenos por WhatsApp y te atenderemos de inmediato.
             </p>
             <a href="https://wa.me/573177261647?text=Hola,%20quiero%20hacer%20un%20pedido%20de%20flores"
                target="_blank"
+               rel="noopener noreferrer"
                class="inline-flex items-center gap-3 bg-green-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-bold hover:bg-green-600 transition shadow-lg hover:shadow-xl">
                 <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
@@ -596,6 +617,7 @@
                     <div class="flex flex-col gap-3 mb-6">
                         <a href="https://web.facebook.com/people/Floristería-Sofía/100064982413493/"
                            target="_blank"
+                           rel="noopener noreferrer"
                            class="flex items-center gap-3 text-gray-300 hover:text-white transition group">
                             <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center group-hover:bg-blue-600 transition">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -606,6 +628,7 @@
                         </a>
                         <a href="https://www.instagram.com/floristeriasofianeiva"
                            target="_blank"
+                           rel="noopener noreferrer"
                            class="flex items-center gap-3 text-gray-300 hover:text-white transition group">
                             <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-orange-600 transition">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -712,6 +735,63 @@
             content.classList.toggle('active');
             icon.classList.toggle('rotate-180');
         }
+    </script>
+
+    <!-- Schema.org JSON-LD Structured Data for Local Business SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Sofía Floristería",
+      "image": "https://sofianeivafloristeria.com/images/logo.png",
+      "@id": "https://sofianeivafloristeria.com",
+      "url": "https://sofianeivafloristeria.com",
+      "telephone": ["+57-317-726-1647", "+57-315-359-2689"],
+      "priceRange": "$$",
+      "email": "fraysury18@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle 16 # 2-48",
+        "addressLocality": "Neiva",
+        "addressRegion": "Huila",
+        "postalCode": "",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 2.9273,
+        "longitude": -75.2819
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "07:00",
+          "closes": "19:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "08:00",
+          "closes": "12:00"
+        }
+      ],
+      "sameAs": [
+        "https://web.facebook.com/people/Floristería-Sofía/100064982413493/",
+        "https://www.instagram.com/floristeriasofianeiva"
+      ],
+      "description": "Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales.",
+      "paymentAccepted": ["Cash", "Bank Transfer", "Nequi", "Daviplata"],
+      "currenciesAccepted": "COP",
+      "areaServed": {
+        "@type": "City",
+        "name": "Neiva",
+        "containedInPlace": {
+          "@type": "AdministrativeArea",
+          "name": "Huila"
+        }
+      }
+    }
     </script>
 </body>
 </html>
