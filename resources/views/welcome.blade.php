@@ -348,17 +348,10 @@
 
                 <!-- Review Card 2 - Hombre (Azul) -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
-<<<<<<< HEAD
                     <div class="h-48 md:h-64 bg-blue-100 flex items-center justify-center">
                         <svg class="w-28 h-28 md:w-36 md:h-36 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                         </svg>
-=======
-                    <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review2.WebP') }}"
-                             alt="Testimonio de Carlos Ramírez - Cliente satisfecho con entrega puntual"
-                             class="w-full h-full object-cover">
->>>>>>> cf8afbd5f3a7f8af91facac3f2f032f85ce47474
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-3">
