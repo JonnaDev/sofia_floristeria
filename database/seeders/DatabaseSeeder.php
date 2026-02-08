@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // Admin principal
         User::updateOrCreate(
-            ['email' => 'admin@sofiaflores.com'], 
+            ['email' => 'sofia.floristeria.25@gmail.com'], 
             [
                 'name' => 'Administrador',
                 'password' => Hash::make('fray$sury$admin2026'),
