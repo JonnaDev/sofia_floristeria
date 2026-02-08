@@ -1,2 +1,29 @@
 User-agent: *
-Disallow:
+
+# Permitir acceso a páginas públicas
+Allow: /
+Allow: /catalogo
+
+# Bloquear rutas de administración
+Disallow: /dashboard
+Disallow: /flowers
+Disallow: /categories
+Disallow: /restocks
+
+# Bloquear rutas de autenticación
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /confirm-password
+Disallow: /two-factor-challenge
+Disallow: /settings
+
+# Bloquear archivos del sistema
+Disallow: /storage/
+Disallow: /.env
+Disallow: /vendor/
+
+# Sitemap
+Sitemap: https://sofianeivafloristeria.com/sitemap.xml

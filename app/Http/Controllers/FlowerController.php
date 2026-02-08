@@ -51,7 +51,7 @@ class FlowerController extends Controller
         }
 
         $data = $query
-            ->orderBy('id', 'desc') 
+            ->orderBy('id', 'asc') 
             ->paginate(9)
             ->withQueryString();
 
