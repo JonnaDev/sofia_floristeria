@@ -294,12 +294,12 @@
             <p class="text-center text-gray-600 mb-8 md:mb-12">Testimonios reales de quienes confían en nosotros</p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-                <!-- Review Card 1 -->
+                <!-- Review Card 1 - Mujer (Rosa) -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
-                    <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review1.png') }}" 
-                             alt="Cliente satisfecho" 
-                             class="w-full h-full object-cover">
+                    <div class="h-48 md:h-64 bg-pink-100 flex items-center justify-center">
+                        <svg class="w-28 h-28 md:w-36 md:h-36 text-pink-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-3">
@@ -313,8 +313,10 @@
                             "¡Increíbles! Las flores llegaron frescas y hermosas. Mi mamá lloró de la emoción. Totalmente recomendados."
                         </p>
                         <div class="flex items-center">
-                            <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
-                                M
+                            <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
                             </div>
                             <div class="ml-3">
                                 <p class="font-bold text-gray-800">María González</p>
@@ -324,12 +326,12 @@
                     </div>
                 </div>
 
-                <!-- Review Card 2 -->
+                <!-- Review Card 2 - Hombre (Azul) -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
-                    <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review2.png') }}" 
-                             alt="Cliente satisfecho" 
-                             class="w-full h-full object-cover">
+                    <div class="h-48 md:h-64 bg-blue-100 flex items-center justify-center">
+                        <svg class="w-28 h-28 md:w-36 md:h-36 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-3">
@@ -343,8 +345,10 @@
                             "Excelente servicio y atención. El arreglo superó mis expectativas. La entrega fue puntual y profesional."
                         </p>
                         <div class="flex items-center">
-                            <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
-                                C
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
                             </div>
                             <div class="ml-3">
                                 <p class="font-bold text-gray-800">Carlos Ramírez</p>
@@ -354,12 +358,12 @@
                     </div>
                 </div>
 
-                <!-- Review Card 3 -->
+                <!-- Review Card 3 - Mujer (Rosa) -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300">
-                    <div class="h-48 md:h-64 overflow-hidden">
-                        <img src="{{ asset('images/review3.png') }}" 
-                             alt="Cliente satisfecho" 
-                             class="w-full h-full object-cover">
+                    <div class="h-48 md:h-64 bg-pink-100 flex items-center justify-center">
+                        <svg class="w-28 h-28 md:w-36 md:h-36 text-pink-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-3">
@@ -373,8 +377,10 @@
                             "Perfectos para sorprender a mi esposa en nuestro aniversario. La calidad es excepcional. ¡Volveré!"
                         </p>
                         <div class="flex items-center">
-                            <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
-                                L
+                            <div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
                             </div>
                             <div class="ml-3">
                                 <p class="font-bold text-gray-800">Laura Martínez</p>
