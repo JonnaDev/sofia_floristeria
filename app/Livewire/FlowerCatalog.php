@@ -15,6 +15,8 @@ class FlowerCatalog extends Component
     public $perPage = 10;
     public $loadedCount = 10;
     public $hasMore = true;
+    public $cartCount = 0;
+    public $cartMessage = '';
 
     public function mount()
     {
@@ -23,7 +25,45 @@ class FlowerCatalog extends Component
             ->orderBy('name')
             ->get();
 
+        $this->cartCount = count(session('cart', []));
         $this->loadFlowers();
+    }
+
+    public function addToCart($flowerId)
+    {
+        $flower = Flower::find($flowerId);
+
+        if (!$flower || $flower->stock <= 0) {
+            $this->cartMessage = 'Este producto no tiene stock disponible.';
+            return;
+        }
+
+        $cart = session('cart', []);
+
+        if (isset($cart[$flowerId])) {
+            if ($cart[$flowerId]['quantity'] < $flower->stock) {
+                $cart[$flowerId]['quantity']++;
+                $this->cartMessage = "'{$flower->name}' cantidad actualizada.";
+            } else {
+                $this->cartMessage = "Stock máximo alcanzado para '{$flower->name}'.";
+                session(['cart' => $cart]);
+                $this->cartCount = count($cart);
+                return;
+            }
+        } else {
+            $cart[$flowerId] = [
+                'id'       => $flower->id,
+                'name'     => $flower->name,
+                'price'    => $flower->price,
+                'quantity' => 1,
+                'stock'    => $flower->stock,
+                'photo'    => $flower->photo_flower_url,
+            ];
+            $this->cartMessage = "'{$flower->name}' agregado al carrito.";
+        }
+
+        session(['cart' => $cart]);
+        $this->cartCount = count($cart);
     }
 
     public function loadFlowers()
