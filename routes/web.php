@@ -3,6 +3,7 @@
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RestockController;
+use App\Http\Controllers\CartController;
 use App\Models\Flower;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,13 @@ Route::get('/', function () {
 Route::get('/catalogo', function () {
     return view('catalog');
 })->name('catalog');
+
+// Carrito de compras (público, sin autenticación)
+Route::get('/carrito', [CartController::class, 'index'])->name('cart');
+Route::post('/carrito/agregar/{flower}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/carrito/actualizar/{flowerId}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/carrito/eliminar/{flowerId}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::get('/dashboard', [FlowerController::class, 'indexDashboard'])
     ->middleware(['auth', 'verified', 'admin'])
