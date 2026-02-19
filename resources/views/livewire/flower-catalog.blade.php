@@ -1,4 +1,19 @@
 <div class="min-h-screen bg-gray-50">
+
+    <!-- Toast de confirmación del carrito -->
+    @if($cartMessage)
+    <div id="cart-toast"
+         class="fixed bottom-4 right-4 z-50 bg-pink-600 text-white px-5 py-3 rounded-xl shadow-2xl text-sm font-semibold flex items-center gap-3 max-w-xs"
+         x-data="{ show: true }" x-show="show" x-transition
+         style="animation: fadeInUp 0.3s ease-out;">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>{{ $cartMessage }}</span>
+        <a href="{{ route('cart') }}" class="underline ml-1 font-bold whitespace-nowrap">Ver carrito →</a>
+    </div>
+    @endif
+
     <!-- Barra de búsqueda y filtros -->
     <div class="bg-white shadow-sm border-b sticky top-16 z-40">
         <div class="container mx-auto px-4 py-3 md:py-4">
@@ -74,7 +89,7 @@
                     <label class="text-xs md:text-sm text-gray-500 font-medium">Mostrar:</label>
                     <select
                         wire:model.live="perPage"
-                        class="px-2 md:px-3 py-1.5 md:py-2 border bg-pink-300/50 border-gray-200 rounded-lg text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white">
+                        class="px-2 md:px-3 py-1.5 md:py-2 border bg-pink-100 border-gray-200 rounded-lg text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
                         <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="50">50</option>
@@ -82,13 +97,25 @@
                     </select>
                 </div>
 
-                @if($selectedCategory || $search)
-                    <button
-                        wire:click="clearFilters"
-                        class="text-xs md:text-sm text-pink-500 hover:text-pink-600 font-semibold transition">
-                        Limpiar filtros
-                    </button>
-                @endif
+                <div class="flex items-center gap-3">
+                    @if($selectedCategory || $search)
+                        <button
+                            wire:click="clearFilters"
+                            class="text-xs md:text-sm text-pink-500 hover:text-pink-600 font-semibold transition">
+                            Limpiar filtros
+                        </button>
+                    @endif
+
+                    @if($cartCount > 0)
+                        <a href="{{ route('cart') }}"
+                           class="flex items-center gap-1.5 bg-pink-500 text-white px-3 py-1.5 rounded-full text-xs font-bold hover:bg-pink-600 transition shadow-sm">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-4H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            Carrito ({{ $cartCount }})
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -164,12 +191,26 @@
                                 </span>
                             </div>
 
-                            <!-- Botón WhatsApp -->
-                            <a href="https://wa.me/573177261647?text=Hola,%20nuevo%20pedido%20desde%20la%20web%20{{ urlencode(url('/')) }}%0A%0AMe%20interesa%20{{ urlencode($flower->name) }}%20por%20${{ number_format($flower->price, 0, ',', '.') }}"
-                               target="_blank"
-                               class="mt-3 md:mt-4 w-full bg-green-500 text-white py-2 md:py-2.5 rounded-lg hover:bg-green-600 transition text-center block text-xs md:text-sm font-semibold">
-                                Pedir por WhatsApp
-                            </a>
+                            <!-- Botones: carrito + WhatsApp -->
+                            <div class="mt-3 md:mt-4 flex flex-col gap-2">
+                                <button
+                                    wire:click="addToCart({{ $flower->id }})"
+                                    wire:loading.attr="disabled"
+                                    wire:target="addToCart({{ $flower->id }})"
+                                    @if($flower->stock <= 0) disabled @endif
+                                    class="w-full bg-pink-500 text-white py-2 md:py-2.5 rounded-lg hover:bg-pink-600 transition text-xs md:text-sm font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <svg class="w-4 h-4 flex-shrink-0" wire:loading.remove wire:target="addToCart({{ $flower->id }})" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-4H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                    <span wire:loading.remove wire:target="addToCart({{ $flower->id }})">Agregar al carrito</span>
+                                    <span wire:loading wire:target="addToCart({{ $flower->id }})">Agregando...</span>
+                                </button>
+                                <a href="https://wa.me/573177261647?text=Hola,%20nuevo%20pedido%20desde%20la%20web%20{{ urlencode(url('/')) }}%0A%0AMe%20interesa%20{{ urlencode($flower->name) }}%20por%20${{ number_format($flower->price, 0, ',', '.') }}"
+                                   target="_blank"
+                                   class="w-full bg-green-500 text-white py-1.5 md:py-2 rounded-lg hover:bg-green-600 transition text-center block text-xs font-medium">
+                                    Pedir por WhatsApp
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
