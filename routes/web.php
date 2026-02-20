@@ -10,10 +10,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $flowers = Flower::with('categories')
-    ->where('price', '>=', 150000)
-    ->orderBy('id', 'desc')
-    ->limit(6)
-    ->get();
+        ->whereHas('categories', function ($query) {
+            $query->whereIn('name', ['Bouquet de Rosas', 'Bouquet de Girasoles']);
+        })
+        ->where('stock', '>', 0)
+        ->orderBy('id', 'desc')
+        ->limit(10)
+        ->get();
     return view('welcome', compact('flowers'));
 })->name('home');
 
