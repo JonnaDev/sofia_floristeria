@@ -12,9 +12,18 @@ use Illuminate\Http\Request;
 
 class FlowerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function welcomeFlower()
+    {
+        $flowers = Flower::with('categories')
+        ->whereHas('categories', function ($query) {
+        $query->whereIn('name', ['Bouquet de Rosas', 'Bouquet de Girasoles']);})
+        ->where('stock', '>', 0)
+        ->orderBy('id', 'desc')
+        ->limit(10)
+        ->get();
+    return view('welcome', compact('flowers'));
+    }
 
     public function indexDashboard()
     {
@@ -28,6 +37,10 @@ class FlowerController extends Controller
             'usersCount'
         ));
     }
+
+    /**
+     * Display a listing of the resource.
+     */
 
     public function index(Request $request)
     {
