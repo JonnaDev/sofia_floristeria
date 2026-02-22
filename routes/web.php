@@ -24,12 +24,10 @@ Route::get('/catalogo', function () {
     return view('catalog');
 })->name('catalog');
 
-// Carrito de compras (público, sin autenticación)
-Route::get('/carrito', [CartController::class, 'index'])->name('cart');
+// Carrito de compras — la lógica es manejada por App\Livewire\CartController
+Route::get('/carrito', fn() => view('cart'))->name('cart');
+// Agregar al carrito sigue siendo un POST clásico desde el catálogo
 Route::post('/carrito/agregar/{flower}', [CartController::class, 'add'])->name('cart.add');
-Route::post('/carrito/actualizar/{flowerId}', [CartController::class, 'update'])->name('cart.update');
-Route::post('/carrito/eliminar/{flowerId}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::get('/dashboard', [FlowerController::class, 'indexDashboard'])
     ->middleware(['auth', 'verified', 'admin'])
