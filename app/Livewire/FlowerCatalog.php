@@ -25,6 +25,10 @@ class FlowerCatalog extends Component
             ->orderBy('name')
             ->get();
 
+        if (request('category_id')) {
+            $this->selectedCategory = (int) request('category_id');
+        }
+
         $this->cartCount = count(session('cart', []));
         $this->loadFlowers();
     }

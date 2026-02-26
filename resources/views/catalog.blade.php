@@ -179,6 +179,9 @@
         </nav>
     </header>
 
+    <!-- Anchor for deep-linking from homepage carousel -->
+    <div id="flores"></div>
+
     <!-- Componente Livewire del Catálogo -->
     @livewire('flower-catalog')
 
