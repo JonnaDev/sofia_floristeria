@@ -7,29 +7,17 @@ use App\Http\Controllers\CartController;
 use App\Models\Flower;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [FlowerController::class, 'welcomeFlower'])
+->name('home');
 
-Route::get('/', function () {
-    $flowers = Flower::with('categories')
-        ->whereHas('categories', function ($query) {
-            $query->whereIn('name', ['Bouquet de Rosas', 'Bouquet de Girasoles']);
-        })
-        ->where('stock', '>', 0)
-        ->orderBy('id', 'desc')
-        ->limit(10)
-        ->get();
-    return view('welcome', compact('flowers'));
-})->name('home');
-
-Route::get('/catalogo', function () {
+Route::get('/catalogo', function () { 
     return view('catalog');
 })->name('catalog');
 
-// Carrito de compras (público, sin autenticación)
-Route::get('/carrito', [CartController::class, 'index'])->name('cart');
+// Carrito de compras — la lógica es manejada por App\Livewire\CartController
+Route::get('/carrito', fn() => view('cart'))->name('cart');
+// Agregar al carrito sigue siendo un POST clásico desde el catálogo
 Route::post('/carrito/agregar/{flower}', [CartController::class, 'add'])->name('cart.add');
-Route::post('/carrito/actualizar/{flowerId}', [CartController::class, 'update'])->name('cart.update');
-Route::post('/carrito/eliminar/{flowerId}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::get('/dashboard', [FlowerController::class, 'indexDashboard'])
     ->middleware(['auth', 'verified', 'admin'])
