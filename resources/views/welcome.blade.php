@@ -274,7 +274,8 @@
                     <div id="flowerCarousel" class="carousel-container overflow-x-auto pb-6">
                         <div class="flex gap-4 md:gap-6 px-2">
                             @foreach($flowers as $flower)
-                                <div class="flower-card bg-white rounded-xl shadow-xl overflow-hidden w-72 md:w-80 flex-shrink-0">
+                                <a href="{{ route('catalog') }}?category_id={{ $flower->categories->first()?->id ?? '' }}#flores"
+                                   class="flower-card bg-white rounded-xl shadow-xl overflow-hidden w-72 md:w-80 flex-shrink-0 block">
                                     <div class="h-48 md:h-64 bg-white flex items-center justify-center overflow-hidden">
                                         @if($flower->photo_flower_url)
                                             <img src="{{ asset('storage/' . $flower->photo_flower_url) }}"
@@ -307,7 +308,7 @@
                                             <span class="text-sm md:text-md font-bold text-pink-500">Stock: {{ $flower->stock }}</span>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             @endforeach
                         </div>
                     </div>
