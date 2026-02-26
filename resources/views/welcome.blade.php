@@ -524,13 +524,13 @@
     </section>
 
     <!-- Por qué elegirnos Section -->
-    <section class="py-12 md:py-16 bg-pink-50">
+    <section class="py-12 md:py-16 bg-pink-100">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-pink-500 mb-12 md:mb-16 fade-in">¿Por qué elegirnos?</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 max-w-6xl mx-auto">
                 <!-- Primera Card: Flores 100% Naturales -->
-                <div class="flex flex-col items-center text-center fade-in-up" style="animation-delay: 0.2s;">
+                <div class="flex flex-col p-5 items-center bg-pink-50 rounded-2xl text-center fade-in-up" style="animation-delay: 0.2s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 mb-6">
                         <svg class="w-full h-full text-pink-600" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C10.343 2 9 3.343 9 5c0 .552.224 1.052.586 1.414L12 8.828l2.414-2.414C14.776 6.052 15 5.552 15 5c0-1.657-1.343-3-3-3zm0 0"></path>
@@ -545,7 +545,7 @@
                 </div>
 
                 <!-- Segunda Card: Entrega en Neiva -->
-                <div class="flex flex-col items-center text-center fade-in-up" style="animation-delay: 0.4s;">
+                <div class="flex flex-col p-5 items-center bg-pink-50 rounded-2xl text-center fade-in-up" style="animation-delay: 0.4s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 mb-6">
                         <svg class="w-full h-full text-pink-600" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M18 18.5a1.5 1.5 0 01-1.5-1.5 1.5 1.5 0 01 1.5-1.5 1.5 1.5 0 011.5 1.5 1.5 1.5 0 01-1.5 1.5m1.5-9l1.96 2.5H17V9.5m-11 9A1.5 1.5 0 017.5 17 1.5 1.5 0 016 15.5 1.5 1.5 0 017.5 14 1.5 1.5 0 019 15.5 1.5 1.5 0 017.5 17M20 8h-3V4H3c-1.11 0-2 .89-2 2v11h2a3 3 0 003 3 3 3 0 003-3h6a3 3 0 003 3 3 3 0 003-3h2v-5l-3-4z"></path>
@@ -558,7 +558,7 @@
                 </div>
 
                 <!-- Tercera Card: Pedidos Seguros -->
-                <div class="flex flex-col items-center text-center fade-in-up" style="animation-delay: 0.6s;">
+                <div class="flex flex-col p-5 items-center bg-pink-50 rounded-2xl text-center fade-in-up" style="animation-delay: 0.6s;">
                     <div class="w-20 h-20 md:w-24 md:h-24 mb-6">
                         <svg class="w-full h-full text-pink-600" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 18H10v-2h4v2zm6-4H4V4h16v12z"></path>
