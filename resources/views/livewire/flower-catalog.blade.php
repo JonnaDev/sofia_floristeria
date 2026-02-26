@@ -33,10 +33,9 @@
                     </svg>
                 </div>
 
-                <!-- Botón "Filtros" — aparece cuando el panel está colapsado -->
+                <!-- Botón "Filtros" — siempre visible, toggle manual -->
                 <button id="filters-toggle-btn"
                         onclick="toggleFilters()"
-                        style="display:none;"
                         class="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 rounded-lg text-xs font-semibold text-gray-600 hover:border-pink-400 hover:text-pink-500 transition flex-shrink-0">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
@@ -304,28 +303,26 @@
             }
         });
 
-        // ── Colapsar filtros al hacer scroll down ──────────────────────────────
+        // ── Colapsar filtros al hacer scroll down / expandir solo con botón ───
         (function () {
-            const collapsible  = document.getElementById('filter-collapsible');
-            const toggleBtn    = document.getElementById('filters-toggle-btn');
-            let lastScrollY    = window.scrollY;
-            let filtersOpen    = true;
-            let ticking        = false;
+            const collapsible = document.getElementById('filter-collapsible');
+            let lastScrollY   = window.scrollY;
+            let filtersOpen   = true;
+            let ticking       = false;
 
             function collapseFilters() {
                 collapsible.style.maxHeight = '0px';
-                collapsible.style.opacity  = '0';
-                toggleBtn.style.display    = 'flex';
+                collapsible.style.opacity   = '0';
                 filtersOpen = false;
             }
 
             function expandFilters() {
                 collapsible.style.maxHeight = '300px';
-                collapsible.style.opacity  = '1';
-                toggleBtn.style.display    = 'none';
+                collapsible.style.opacity   = '1';
                 filtersOpen = true;
             }
 
+            // Solo el botón abre/cierra — nunca auto-expande al subir
             window.toggleFilters = function () {
                 filtersOpen ? collapseFilters() : expandFilters();
             };
@@ -335,13 +332,8 @@
                 ticking = true;
                 requestAnimationFrame(function () {
                     const currentY = window.scrollY;
-                    // Colapsa al bajar más de 80px desde el top
                     if (currentY > 80 && currentY > lastScrollY && filtersOpen) {
                         collapseFilters();
-                    }
-                    // Re-expande al subir
-                    if (currentY < lastScrollY - 15 && !filtersOpen) {
-                        expandFilters();
                     }
                     lastScrollY = currentY;
                     ticking = false;
