@@ -7,20 +7,10 @@ use App\Http\Controllers\CartController;
 use App\Models\Flower;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [FlowerController::class, 'welcomeFlower'])
+->name('home');
 
-Route::get('/', function () {
-    $flowers = Flower::with('categories')
-        ->whereHas('categories', function ($query) {
-            $query->whereIn('name', ['Bouquet de Rosas', 'Bouquet de Girasoles']);
-        })
-        ->where('stock', '>', 0)
-        ->orderBy('id', 'desc')
-        ->limit(10)
-        ->get();
-    return view('welcome', compact('flowers'));
-})->name('home');
-
-Route::get('/catalogo', function () {
+Route::get('/catalogo', function () { 
     return view('catalog');
 })->name('catalog');
 

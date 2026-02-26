@@ -3,6 +3,8 @@ User-agent: *
 # Permitir acceso a páginas públicas
 Allow: /
 Allow: /catalogo
+Disallow: /carrito
+
 
 # Bloquear rutas de administración
 Disallow: /dashboard

@@ -53,9 +53,8 @@ class CartController extends Component
         if (!isset($this->cart[$flowerId])) {
             return;
         }
-
         if ($this->cart[$flowerId]['quantity'] <= 1) {
-            $this->remove($flowerId);
+           $this->cart[$flowerId]['quantity'] == 0;
         } else {
             $this->cart[$flowerId]['quantity']--;
             $this->syncSession();
