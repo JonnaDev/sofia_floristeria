@@ -24,6 +24,16 @@
     <meta name="twitter:description" content="Florería en Neiva con entrega rápida a domicilio. Arreglos florales para cumpleaños, amor y ocasiones especiales.">
     <meta name="twitter:image" content="https://sofianeivafloristeria.com/images/logo.WebP">
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTS541GNH5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-LTS541GNH5');
+    </script>
+
+
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
