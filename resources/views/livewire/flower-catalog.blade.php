@@ -301,34 +301,55 @@
 
         // ── Colapsar filtros al hacer scroll down / expandir solo con botón ───
         (function () {
-            const collapsible = document.getElementById('filter-collapsible');
-            let lastScrollY   = window.scrollY;
-            let filtersOpen   = true;
-            let ticking       = false;
+            const STORAGE_KEY  = 'catalog_filters_open';
+            const collapsible  = document.getElementById('filter-collapsible');
+            let lastScrollY    = window.scrollY;
+            let ticking        = false;
+
+            // Estado persistente: si no hay valor guardado, empezar abierto
+            function isOpen() {
+                return sessionStorage.getItem(STORAGE_KEY) !== 'closed';
+            }
 
             function collapseFilters() {
                 collapsible.style.maxHeight = '0px';
                 collapsible.style.opacity   = '0';
-                filtersOpen = false;
+                sessionStorage.setItem(STORAGE_KEY, 'closed');
             }
 
             function expandFilters() {
                 collapsible.style.maxHeight = '300px';
                 collapsible.style.opacity   = '1';
-                filtersOpen = true;
+                sessionStorage.setItem(STORAGE_KEY, 'open');
             }
 
-            // Solo el botón abre/cierra — nunca auto-expande al subir
+            // Aplicar estado guardado al iniciar (y tras cada re-render de Livewire)
+            function applyStoredState() {
+                if (isOpen()) {
+                    expandFilters();
+                } else {
+                    collapseFilters();
+                }
+            }
+
+            applyStoredState();
+
+            // Solo el botón abre/cierra
             window.toggleFilters = function () {
-                filtersOpen ? collapseFilters() : expandFilters();
+                isOpen() ? collapseFilters() : expandFilters();
             };
 
+            // Tras cada actualización de Livewire (loadMore, addToCart, etc.)
+            // restaurar el estado guardado sin reabrir si estaba cerrado
+            document.addEventListener('livewire:update', applyStoredState);
+
+            // Colapsar al hacer scroll down
             window.addEventListener('scroll', function () {
                 if (ticking) return;
                 ticking = true;
                 requestAnimationFrame(function () {
                     const currentY = window.scrollY;
-                    if (currentY > 80 && currentY > lastScrollY && filtersOpen) {
+                    if (currentY > 80 && currentY > lastScrollY && isOpen()) {
                         collapseFilters();
                     }
                     lastScrollY = currentY;
