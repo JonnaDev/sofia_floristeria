@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-100">
 
     <!-- Toast de confirmación del carrito -->
     @if($cartMessage)
@@ -14,109 +14,113 @@
     </div>
     @endif
 
-    <!-- Barra de búsqueda y filtros -->
-    <div class="bg-white shadow-sm border-b sticky top-16 z-40">
-        <div class="container mx-auto px-4 py-3 md:py-4">
-            <!-- Barra de búsqueda -->
-            <div class="mb-3 md:mb-4">
-                <div class="relative max-w-2xl mx-auto">
+    <!-- Barra de búsqueda y filtros (sticky, colapsa al hacer scroll down) -->
+    <div id="catalog-filterbar" class="bg-white shadow-sm border-b sticky top-16 z-40">
+        <div class="container mx-auto px-4 pt-3 pb-0">
+
+            <!-- Fila siempre visible: búsqueda + botón filtros (colapsado) + carrito -->
+            <div class="flex items-center gap-2 mb-3">
+
+                <!-- Input búsqueda -->
+                <div class="relative flex-1">
                     <input
                         type="text"
                         wire:model.live.debounce.300ms="search"
                         placeholder="Buscar productos..."
-                        class="w-full px-4 py-2.5 md:py-3 pl-10 md:pl-12 pr-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent text-sm md:text-base">
-                    <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400 absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent text-sm">
+                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                 </div>
+
+                <!-- Botón "Filtros" — siempre visible, toggle manual -->
+                <button id="filters-toggle-btn"
+                        onclick="toggleFilters()"
+                        class="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 rounded-lg text-xs font-semibold text-gray-600 hover:border-pink-400 hover:text-pink-500 transition flex-shrink-0">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
+                    </svg>
+                    Filtros
+                    @if($selectedCategory)
+                        <span class="bg-pink-500 text-white rounded-full w-4 h-4 inline-flex items-center justify-center leading-none">1</span>
+                    @endif
+                </button>
+
+                <!-- Carrito badge (siempre visible) -->
+                @if($cartCount > 0)
+                    <a href="{{ route('cart') }}"
+                       class="flex items-center gap-1.5 bg-pink-500 text-white px-3 py-2.5 rounded-lg text-xs font-bold hover:bg-pink-600 transition flex-shrink-0">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-4H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span class="hidden sm:inline">Carrito</span> ({{ $cartCount }})
+                    </a>
+                @endif
             </div>
 
-            <!-- Filtros de categorías responsive -->
-            <div class="mb-3 md:mb-4">
-                <!-- Mobile: scroll horizontal con fade en bordes -->
-                <div class="relative md:hidden">
-                    <!-- Fade derecho -->
-                    <div class="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+            <!-- Panel colapsable: categorías + controles -->
+            <div id="filter-collapsible"
+                 style="overflow:hidden; max-height:300px; opacity:1; transition: max-height 0.3s ease-out, opacity 0.25s ease-out;">
 
-                    <div id="categoryScroll" class="flex gap-2 overflow-x-auto pb-2" style="-webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;">
-                        <button
-                            wire:click="filterByCategory(null)"
-                            class="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap
-                                {{ !$selectedCategory 
-                                    ? 'bg-pink-500 text-white shadow-sm' 
-                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                <!-- Categorías -->
+                <div class="mb-2">
+                    <!-- Mobile: scroll horizontal -->
+                    <div class="relative md:hidden">
+                        <div class="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                        <div class="flex gap-2 overflow-x-auto pb-2" style="-webkit-overflow-scrolling:touch; scrollbar-width:none; -ms-overflow-style:none;">
+                            <button wire:click="filterByCategory(null)"
+                                    class="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap
+                                        {{ !$selectedCategory ? 'bg-pink-500 text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                                Todos
+                            </button>
+                            @foreach($categories as $category)
+                                <button wire:click="filterByCategory({{ $category->id }})"
+                                        class="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap
+                                            {{ $selectedCategory == $category->id ? 'bg-pink-500 text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                                    {{ $category->name }}
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Desktop: pills en fila con wrap -->
+                    <div class="hidden md:flex flex-wrap gap-2">
+                        <button wire:click="filterByCategory(null)"
+                                class="px-4 py-1.5 rounded-full text-sm font-semibold transition
+                                    {{ !$selectedCategory ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                             Todos
                         </button>
                         @foreach($categories as $category)
-                            <button
-                                wire:click="filterByCategory({{ $category->id }})"
-                                class="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap
-                                    {{ $selectedCategory == $category->id 
-                                        ? 'bg-pink-500 text-white shadow-sm shadow-pink-500/30' 
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                            <button wire:click="filterByCategory({{ $category->id }})"
+                                    class="px-4 py-1.5 rounded-full text-sm font-semibold transition
+                                        {{ $selectedCategory == $category->id ? 'bg-pink-500 text-white shadow-md shadow-pink-500/30' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                                 {{ $category->name }}
                             </button>
                         @endforeach
                     </div>
                 </div>
 
-                <!-- Desktop: wrap normal -->
-                <div class="hidden md:flex flex-wrap gap-2">
-                    <button
-                        wire:click="filterByCategory(null)"
-                        class="px-4 py-2 rounded-full text-sm font-semibold transition
-                            {{ !$selectedCategory 
-                                ? 'bg-pink-500 text-white' 
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
-                        Todos
-                    </button>
-                    @foreach($categories as $category)
-                        <button
-                            wire:click="filterByCategory({{ $category->id }})"
-                            class="px-4 py-2 rounded-full text-sm font-semibold transition
-                                {{ $selectedCategory == $category->id 
-                                    ? 'bg-pink-500 text-white shadow-md shadow-pink-500/30' 
-                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
-                            {{ $category->name }}
-                        </button>
-                    @endforeach
-                </div>
-            </div>
-
-            <!-- Controles: Mostrar y Limpiar -->
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2 md:gap-3">
-                    <label class="text-xs md:text-sm text-gray-500 font-medium">Mostrar:</label>
-                    <select
-                        wire:model.live="perPage"
-                        class="px-2 md:px-3 py-1.5 md:py-2 border bg-pink-100 border-gray-200 rounded-lg text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </div>
-
-                <div class="flex items-center gap-3">
+                <!-- Controles: Mostrar + Limpiar -->
+                <div class="flex items-center justify-between pb-3">
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs text-gray-400 font-medium">Mostrar:</label>
+                        <select wire:model.live="perPage"
+                                class="px-2 py-1.5 border bg-pink-100 border-gray-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-pink-400">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
                     @if($selectedCategory || $search)
-                        <button
-                            wire:click="clearFilters"
-                            class="text-xs md:text-sm text-pink-500 hover:text-pink-600 font-semibold transition">
-                            Limpiar filtros
+                        <button wire:click="clearFilters"
+                                class="text-xs text-pink-500 hover:text-pink-600 font-semibold transition">
+                            × Limpiar filtros
                         </button>
-                    @endif
-
-                    @if($cartCount > 0)
-                        <a href="{{ route('cart') }}"
-                           class="flex items-center gap-1.5 bg-pink-500 text-white px-3 py-1.5 rounded-full text-xs font-bold hover:bg-pink-600 transition shadow-sm">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-4H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                            Carrito ({{ $cartCount }})
-                        </a>
                     @endif
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -294,5 +298,43 @@
                 closeImageModal();
             }
         });
+
+        // ── Colapsar filtros al hacer scroll down / expandir solo con botón ───
+        (function () {
+            const collapsible = document.getElementById('filter-collapsible');
+            let lastScrollY   = window.scrollY;
+            let filtersOpen   = true;
+            let ticking       = false;
+
+            function collapseFilters() {
+                collapsible.style.maxHeight = '0px';
+                collapsible.style.opacity   = '0';
+                filtersOpen = false;
+            }
+
+            function expandFilters() {
+                collapsible.style.maxHeight = '300px';
+                collapsible.style.opacity   = '1';
+                filtersOpen = true;
+            }
+
+            // Solo el botón abre/cierra — nunca auto-expande al subir
+            window.toggleFilters = function () {
+                filtersOpen ? collapseFilters() : expandFilters();
+            };
+
+            window.addEventListener('scroll', function () {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(function () {
+                    const currentY = window.scrollY;
+                    if (currentY > 80 && currentY > lastScrollY && filtersOpen) {
+                        collapseFilters();
+                    }
+                    lastScrollY = currentY;
+                    ticking = false;
+                });
+            }, { passive: true });
+        })();
     </script>
 </div>
