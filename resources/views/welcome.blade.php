@@ -574,6 +574,95 @@
         </div>
     </section>
 
+    <!-- Sección Ubicación del Negocio -->
+    <section class="py-12 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">Encuéntranos</h2>
+            <p class="text-center text-gray-500 mb-10 md:mb-12 text-sm md:text-base">Visítanos en nuestra tienda física en el corazón de Neiva</p>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
+
+                <!-- Foto fachada + info -->
+                <div class="flex flex-col gap-4">
+                    <!-- Foto del negocio -->
+                    <div class="rounded-2xl overflow-hidden shadow-xl flex-1">
+                        <img src="{{ asset('images/sofia_floristeria_negocio_fisico.webp') }}"
+                             alt="Fachada Sofía Floristería Neiva - Cl. 16 #2-48 Los Potros"
+                             class="w-full h-56 md:h-72 object-cover">
+                    </div>
+
+                    <!-- Info de contacto/horario -->
+                    <div class="bg-pink-50 rounded-2xl p-5 md:p-6 shadow-md">
+                        <div class="space-y-3">
+                            <!-- Dirección -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800 text-sm">Dirección</p>
+                                    <p class="text-gray-600 text-sm">Cl. 16 #2-48, Los Potros<br>Neiva, Huila, Colombia</p>
+                                </div>
+                            </div>
+                            <!-- Horario -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800 text-sm">Horario</p>
+                                    <p class="text-gray-600 text-sm">Lun – Sáb: 7:00 a.m. – 7:00 p.m.</p>
+                                    <p class="text-gray-600 text-sm">Dom y festivos: 8:00 a.m. – 12:00 p.m.</p>
+                                </div>
+                            </div>
+                            <!-- Teléfono -->
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 bg-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800 text-sm">Teléfonos</p>
+                                    <a href="tel:+573177261647" class="text-pink-600 hover:text-pink-700 text-sm block">+57 317 726 1647</a>
+                                    <a href="tel:+573153592689" class="text-pink-600 hover:text-pink-700 text-sm block">+57 315 359 2689</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Botón Google Maps -->
+                        <a href="https://maps.app.goo.gl/3r3XP7KQhRvmH2PAA"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="mt-4 w-full flex items-center justify-center gap-2 bg-white border-2 border-pink-300 text-pink-600 font-semibold px-4 py-2.5 rounded-xl hover:bg-pink-50 transition text-sm">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            Ver en Google Maps
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mapa embebido -->
+                <div class="rounded-2xl overflow-hidden shadow-xl h-80 md:h-full min-h-72">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.591816298953!2d-75.2934609!3d2.933014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b7376ae7a8523%3A0x8bc39bf47c598f8a!2sSofia%20Florister%C3%ADa%20Neiva!5e0!3m2!1ses-419!2sco!4v1772380274738!5m2!1ses-419!2sco"
+                        width="100%"
+                        height="100%"
+                        style="border:0; min-height: 320px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Ubicación Sofía Floristería Neiva - Cl. 16 #2-48 Los Potros">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sección de Llamado a Acción WhatsApp -->
     <section class="py-12 md:py-20 bg-gradient-to-r from-pink-100 to-purple-100">
         <div class="container mx-auto px-4 text-center max-w-3xl">

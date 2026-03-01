@@ -125,9 +125,9 @@
         @if($flowers->count() > 0)
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
                 @foreach($flowers as $flower)
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
                         <!-- Imagen -->
-                        <div class="h-40 md:h-64 bg-gray-100 flex items-center justify-center overflow-hidden relative cursor-pointer group"
+                        <div class="h-40 md:h-64 bg-gray-100 flex items-center justify-center overflow-hidden relative cursor-pointer group flex-shrink-0"
                              onclick="openImageModal(this, '{{ $flower->name }}')"
                              data-image="{{ $flower->photo_flower_url ? asset('storage/' . $flower->photo_flower_url) : '' }}">
                             @if($flower->photo_flower_url)
@@ -159,30 +159,26 @@
                         </div>
 
                         <!-- Contenido -->
-                        <div class="p-3 md:p-5">
+                        <div class="p-3 md:p-5 flex flex-col flex-1">
                             <h3 class="text-sm md:text-lg font-bold text-gray-800 mb-1 md:mb-2 line-clamp-1">{{ $flower->name }}</h3>
 
                             <!-- Descripción solo en desktop -->
-                            @if($flower->description)
-                                <p class="hidden md:block text-sm text-gray-500 mb-3 line-clamp-2">{{ $flower->description }}</p>
-                            @endif
+                            <p class="hidden md:block text-sm text-gray-500 mb-3 line-clamp-2 min-h-[2.5rem]">{{ $flower->description }}</p>
 
                             <!-- Categorías -->
-                            @if($flower->categories->count() > 0)
-                                <div class="flex flex-wrap gap-1 mb-2 md:mb-3">
-                                    @foreach($flower->categories->take(2) as $category)
-                                        <span class="text-xs bg-pink-50 text-pink-600 px-2 py-0.5 rounded-full font-medium">
-                                            {{ $category->name }}
-                                        </span>
-                                    @endforeach
-                                    @if($flower->categories->count() > 2)
-                                        <span class="text-xs text-gray-400">+{{ $flower->categories->count() - 2 }}</span>
-                                    @endif
-                                </div>
-                            @endif
+                            <div class="flex flex-wrap gap-1 mb-2 md:mb-3 min-h-[1.5rem]">
+                                @foreach($flower->categories->take(2) as $category)
+                                    <span class="text-xs bg-pink-50 text-pink-600 px-2 py-0.5 rounded-full font-medium">
+                                        {{ $category->name }}
+                                    </span>
+                                @endforeach
+                                @if($flower->categories->count() > 2)
+                                    <span class="text-xs text-gray-400">+{{ $flower->categories->count() - 2 }}</span>
+                                @endif
+                            </div>
 
                             <!-- Precio y stock -->
-                            <div class="flex justify-between items-center">
+                            <div class="flex justify-between items-center mt-auto">
                                 <span class="text-base md:text-xl font-bold text-pink-600">
                                     ${{ number_format($flower->price, 0, ',', '.') }}
                                 </span>
