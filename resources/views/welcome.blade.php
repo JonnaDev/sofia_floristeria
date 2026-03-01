@@ -648,7 +648,7 @@
                 </div>
 
                 <!-- Mapa embebido -->
-                <div class="rounded-2xl overflow-hidden shadow-xl h-80 md:h-full min-h-90">
+                <div class="overflow-hidden shadow-xl h-82 md:h-full min-h-90">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.591816298953!2d-75.2934609!3d2.933014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b7376ae7a8523%3A0x8bc39bf47c598f8a!2sSofia%20Florister%C3%ADa%20Neiva!5e0!3m2!1ses-419!2sco!4v1772380274738!5m2!1ses-419!2sco"
                         width="100%"
@@ -924,7 +924,7 @@
     </script>
 
     <!-- Botón flotante WhatsApp -->
-    <a href="https://wa.me/573177261647?text=Hola,%20me%20interesa%20hacer%20un%20pedido%20en%20Sof%C3%ADa%20Floriester%C3%ADa%20%F0%9F%8C%B8%0ADesde%3A%20{{ urlencode(url('/')) }}"
+    <a href="https://wa.me/573177261647?text=Hola,%20me%20interesa%20hacer%20un%20pedido%20en%20Sof%C3%ADa%20Floriester%C3%ADa"
        target="_blank"
        rel="noopener noreferrer"
        aria-label="Contactar por WhatsApp"
