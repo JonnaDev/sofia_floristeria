@@ -15,6 +15,6 @@ return [
 
     'failed' => 'Estas credenciales no coinciden con nuestros registros.',
     'password' => 'La contraseña es incorrecta.',
-    'throttle' => 'Demasiados intentos de inicio de sesión. Por favor intenta de nuevo en :seconds segundos.',
+    'throttle' => 'Demasiados intentos fallidos. Cuenta bloqueada por :seconds segundos. Intenta de nuevo más tarde.',
 
 ];
