@@ -7,7 +7,7 @@
 
         <!-- Validation / lockout errors -->
         @if ($errors->has('email'))
-            <div class="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 text-center">
+            <div class="rounded-lg bg-white border border-red-200 px-4 py-3 text-sm text-red-700 text-center">
                 {{ $errors->first('email') }}
             </div>
         @endif
