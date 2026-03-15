@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class CartController extends Component
 {
+    /* Recordatorio para mi mismo: Inicializamos el carrito en un array vacio que luego mapeamos a traves de syncsession*/
     public array $cart = [];
 
     public function mount(): void
@@ -48,18 +49,24 @@ class CartController extends Component
         }
     }
 
+    /* 
+    El unset se aplica sobre el Modelo->id individualmente y 
+    no asignarle un array vacio, con esto eliminamos el item del carrito directamente sin bugs. (encontrados)
+    */
     public function decrement(int $flowerId): void
     {
         if (!isset($this->cart[$flowerId])) {
             return;
         }
         if ($this->cart[$flowerId]['quantity'] <= 1) {
-           $this->cart[$flowerId]['quantity'] == 0;
+           unset($this->cart[$flowerId]);
         } else {
             $this->cart[$flowerId]['quantity']--;
-            $this->syncSession();
         }
+        $this->syncSession();$this->syncSession();
     }
+
+    /* No confundir con decrement, ya que esta funcion aplica directamente sobre el id sin usar los botones decrement sino apuntando al icon*/
 
     public function remove(int $flowerId): void
     {
