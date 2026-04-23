@@ -113,7 +113,7 @@
                 </a>
             </div>
 
-            @livewire('cart-controller')
+            @livewire('cart')
 
         </div>
     </main>

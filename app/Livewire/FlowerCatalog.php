@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Flower;
 use App\Models\Category;
+use App\Support\Cart;
 use Livewire\Component;
 
 class FlowerCatalog extends Component
@@ -29,45 +30,15 @@ class FlowerCatalog extends Component
             $this->selectedCategory = (int) request('category_id');
         }
 
-        $this->cartCount = count(session('cart', []));
+        $this->cartCount = Cart::count();
         $this->loadFlowers();
     }
 
-    public function addToCart($flowerId)
+    public function addToCart(int $flowerId): void
     {
-        $flower = Flower::find($flowerId);
-
-        if (!$flower || $flower->stock <= 0) {
-            $this->cartMessage = 'Este producto no tiene stock disponible.';
-            return;
-        }
-
-        $cart = session('cart', []);
-
-        if (isset($cart[$flowerId])) {
-            if ($cart[$flowerId]['quantity'] < $flower->stock) {
-                $cart[$flowerId]['quantity']++;
-                $this->cartMessage = "'{$flower->name}' cantidad actualizada.";
-            } else {
-                $this->cartMessage = "Stock máximo alcanzado para '{$flower->name}'.";
-                session(['cart' => $cart]);
-                $this->cartCount = count($cart);
-                return;
-            }
-        } else {
-            $cart[$flowerId] = [
-                'id'       => $flower->id,
-                'name'     => $flower->name,
-                'price'    => $flower->price,
-                'quantity' => 1,
-                'stock'    => $flower->stock,
-                'photo'    => $flower->photo_flower_url,
-            ];
-            $this->cartMessage = "'{$flower->name}' agregado al carrito.";
-        }
-
-        session(['cart' => $cart]);
-        $this->cartCount = count($cart);
+        $this->cartMessage = Cart::add($flowerId);
+        $this->cartCount   = Cart::count();
+        $this->dispatch('cart-updated');
     }
 
     public function loadFlowers()
