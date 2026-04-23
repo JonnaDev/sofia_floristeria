@@ -5,6 +5,13 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
+        <!-- Validation / lockout errors -->
+        @if ($errors->has('email'))
+            <div class="rounded-lg bg-white border border-red-200 px-4 py-3 text-sm text-red-700 text-center">
+                {{ $errors->first('email') }}
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
             @csrf
 

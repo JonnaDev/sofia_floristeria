@@ -61,7 +61,7 @@ class FlowerCatalog extends Component
             });
         }
 
-        $this->flowers = $query->orderBy('id', 'desc')
+        $this->flowers = $query->orderBy('id', 'asc')
             ->take($this->loadedCount)
             ->get();
 

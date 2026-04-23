@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -64,9 +65,18 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $email       = Str::lower($request->input(Fortify::username()));
+            $throttleKey = Str::transliterate($email . '|' . $request->ip());
 
-            return Limit::perMinute(5)->by($throttleKey);
+            $user = User::where('email', $email)->first();
+
+            if ($user && $user->isAdmin()) {
+                // Cuentas Admin: 5 intentos fallidos → bloqueo de 5 minutos
+                return Limit::perMinutes(5, 5)->by($throttleKey);
+            }
+
+            // Correos no registrados o sin rol Admin: límite estándar
+            return Limit::perMinute(10)->by($throttleKey);
         });
     }
 }
