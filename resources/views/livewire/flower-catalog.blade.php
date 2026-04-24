@@ -64,7 +64,8 @@
     {{-- ─── Toast confirmación carrito ─── --}}
     @if($cartMessage)
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-8 z-[60] toast-in
-                bg-gray-900 text-white px-5 py-3 rounded-full shadow-2xl text-sm font-medium flex items-center gap-3 max-w-sm"
+                bg-gray-900 text-white px-5 py-3 rounded-full shadow-2xl text-sm font-medium flex items-center gap-3
+                max-w-[calc(100vw-2rem)] sm:max-w-sm"
          wire:key="toast-{{ md5($cartMessage) }}">
         <svg class="w-5 h-5 text-pink-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>

@@ -34,6 +34,9 @@
     <link rel="preload" as="image" href="{{ asset('images/hero-poster.webp') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        /* Evita overflow horizontal en mobile (menú fijo fuera del viewport,
+           transforms de reveal, etc). `clip` preserva position:sticky. */
+        html, body { overflow-x: clip; }
         html { scroll-behavior: smooth; }
         body { background: #fafafa; color: #111827; }
 

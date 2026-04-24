@@ -10,6 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <style>
+        html, body { overflow-x: clip; }
         html { scroll-behavior: smooth; }
         body { background: #f4f4f5; color: #111827; }
     </style>

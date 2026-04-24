@@ -38,6 +38,13 @@
 
 @layer base {
 
+    /* Evita el overflow horizontal (≈4px en mobile) causado por transforms de reveal,
+       menús fuera de pantalla, toasts con max-w-sm, etc. `clip` preserva sticky,
+       `hidden` lo rompería. */
+    html, body {
+        overflow-x: clip;
+    }
+
     *,
     ::after,
     ::before,
