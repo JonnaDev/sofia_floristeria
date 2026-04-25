@@ -178,7 +178,7 @@
     @endif
 
     <!-- ============ HERO: VIDEO SCROLL-SCRUBBED ============ -->
-    <section id="hero-wrapper" style="height: 500vh;">
+    <section id="hero-wrapper" style="height: 300vh;">
         <div id="hero-sticky">
             <video id="hero-video"
                    muted playsinline preload="auto"
