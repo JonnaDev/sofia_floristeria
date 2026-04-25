@@ -1,21 +1,24 @@
 /**
- * Hero scroll-driven playback — efecto "Apple" / web-scrolling
+ * Hero scroll-gated playback — efecto "Apple"
  *
  * Pauta: skills/01-web-scrolling.md
  *
  * Comportamiento:
- *  - Desktop: el vídeo se reproduce (a su velocidad natural) mientras el usuario
- *    scrollea. Si el usuario se detiene, el vídeo pausa tras un pequeño idle.
- *    Al volver a scrollear, el vídeo continúa desde donde se quedó. Reproducción
- *    fluida, sin seek frame-a-frame → sin stutter ni "saltos" de keyframe.
- *  - Mobile táctil (o `prefers-reduced-motion`): autoplay loop silencioso lineal,
- *    igual que el hero antiguo en móvil.
- *  - CTAs: se revelan cuando el vídeo llega al 85% (o al `ended`). Una vez visibles
- *    se quedan fijos; no se ocultan aunque el usuario suba.
- *  - Hint "Desliza" se desvanece con el progreso del scroll en el hero.
+ *  - Desktop: al primer intento de scroll dentro del hero, el vídeo empieza a
+ *    reproducirse a velocidad natural (1x, decode lineal, sin stutter) y el scroll
+ *    del documento queda BLOQUEADO. Durante los ~8s del vídeo el usuario no puede
+ *    avanzar más abajo. Al terminar el vídeo:
+ *      · Se desbloquea el scroll.
+ *      · Aparecen los CTAs con cascada escalonada.
+ *      · El usuario continúa hacia el carrusel.
+ *  - Mobile táctil (o `prefers-reduced-motion`): autoplay loop lineal, igual que
+ *    el hero antiguo en móvil. Sin bloqueo de scroll.
+ *  - Si el usuario llega con un hash en la URL (#catalogo, #contacto, etc.) o
+ *    con scroll restaurado, se salta el gate y se muestra el hero con CTAs
+ *    directamente — no queremos atrapar a nadie que no venga a la home.
  *
- * El IIFE comprueba la existencia de los elementos clave y termina silenciosamente
- * si no está en la página del welcome — seguro para incluir globalmente vía app.js.
+ * Se interceptan wheel, touchmove y keys de scroll para cubrir todos los
+ * métodos de navegación vertical del navegador.
  */
 (() => {
     const wrapper = document.getElementById('hero-wrapper');
@@ -25,8 +28,6 @@
 
     if (!wrapper || !video || !ctas) return;
 
-    // Detección "mobile real" (táctil + viewport estrecho).
-    // Evita falsos positivos en laptops con DevTools abierto a la derecha.
     const hasTouch      = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
     const narrowView    = window.matchMedia('(max-width: 768px)').matches;
     const isRealMobile  = hasTouch && narrowView;
@@ -43,51 +44,78 @@
         return;
     }
 
-    // ── Desktop: scroll-driven playback ───────────────────────────────
-    const IDLE_MS   = 220;   // ms sin scroll para pausar
-    const LATCH_AT  = 0.85;  // revelar CTAs al 85% del vídeo
-
-    let idleTimer = null;
-    let latched   = false;
+    // ── Desktop: scroll-gated playback ────────────────────────────────
+    let started  = false;
+    let finished = false;
 
     video.muted = true;
     video.pause();
     video.currentTime = 0;
 
-    const latchCTAs = () => {
-        if (latched) return;
-        latched = true;
-        ctas.classList.add('revealed');
+    const lockScroll = () => {
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+    };
+    const unlockScroll = () => {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
     };
 
-    video.addEventListener('timeupdate', () => {
-        if (!latched && video.duration && video.currentTime / video.duration >= LATCH_AT) {
-            latchCTAs();
+    const finishPlayback = () => {
+        if (finished) return;
+        finished = true;
+        unlockScroll();
+        ctas.classList.add('revealed');
+        if (hint) hint.style.opacity = '0';
+    };
+
+    const startPlayback = () => {
+        if (started) return;
+        started = true;
+        lockScroll();
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {
+                // Si el navegador bloqueó el play (política de autoplay), libera
+                // el scroll para no atrapar al usuario sin recurso.
+                unlockScroll();
+                started = false;
+            });
+        }
+    };
+
+    video.addEventListener('ended', finishPlayback);
+
+    // ── Bypass del gate ───────────────────────────────────────────────
+    //   Llegada con hash (#catalogo, #contacto) o scroll restaurado → saltar.
+    const arrivedMidPage =
+        (window.location.hash && window.location.hash.length > 1) ||
+        window.scrollY > 50;
+
+    if (arrivedMidPage) {
+        finishPlayback();
+        video.play().catch(() => {});
+        return;
+    }
+
+    // ── Interceptar cualquier intento de scroll ───────────────────────
+    const gate = (e) => {
+        if (finished) return;
+        e.preventDefault();
+        if (!started) startPlayback();
+    };
+
+    const SCROLL_KEYS = [
+        'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp',
+        'Home', 'End', ' ', 'Spacebar'
+    ];
+
+    window.addEventListener('wheel',     gate, { passive: false });
+    window.addEventListener('touchmove', gate, { passive: false });
+    window.addEventListener('keydown', (e) => {
+        if (!finished && SCROLL_KEYS.includes(e.key)) {
+            e.preventDefault();
+            if (!started) startPlayback();
         }
     });
-    video.addEventListener('ended', latchCTAs);
-
-    window.addEventListener('scroll', () => {
-        const rect   = wrapper.getBoundingClientRect();
-        const inView = rect.bottom > 0 && rect.top < window.innerHeight;
-
-        if (inView && !video.ended) {
-            if (video.paused) {
-                video.play().catch(() => { /* puede bloquearse sin gesto previo */ });
-            }
-            if (idleTimer) clearTimeout(idleTimer);
-            idleTimer = setTimeout(() => {
-                if (!video.ended) video.pause();
-            }, IDLE_MS);
-        }
-
-        // Hint "Desliza" se desvanece con el progreso
-        if (hint) {
-            const scrollable = wrapper.offsetHeight - window.innerHeight;
-            if (scrollable > 0) {
-                const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-                hint.style.opacity = Math.max(0, 1 - progress * 4);
-            }
-        }
-    }, { passive: true });
 })();
