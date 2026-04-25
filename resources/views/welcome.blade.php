@@ -178,7 +178,7 @@
     @endif
 
     <!-- ============ HERO: VIDEO SCROLL-SCRUBBED ============ -->
-    <section id="hero-wrapper" style="height: 260vh;">
+    <section id="hero-wrapper" style="height: 500vh;">
         <div id="hero-sticky">
             <video id="hero-video"
                    muted playsinline preload="auto"
@@ -521,72 +521,8 @@
             icon?.classList.toggle('rotate-180');
         }
 
-        // ── Hero: scroll-scrubbed video (desktop) / autoplay (mobile) ─
-        (() => {
-            const wrapper = document.getElementById('hero-wrapper');
-            const sticky  = document.getElementById('hero-sticky');
-            const video   = document.getElementById('hero-video');
-            const ctas    = document.getElementById('hero-ctas');
-            const hint    = document.getElementById('scroll-hint');
-            if (!wrapper || !video || !ctas) return;
-
-            const isDesktop = window.matchMedia('(min-width: 768px)').matches;
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            // --- Modo móvil o reduced-motion: autoplay loop simple ---
-            if (!isDesktop || reduceMotion) {
-                wrapper.style.height = '100vh';
-                video.loop = true;
-                video.autoplay = true;
-                video.play().catch(() => {});
-                ctas.classList.add('revealed');
-                if (hint) hint.style.display = 'none';
-                return;
-            }
-
-            // --- Modo desktop: scroll-scrub ---
-            let duration   = 0;
-            let ticking    = false;
-            let latched    = false;   // una vez true, los CTAs quedan fijos para siempre
-            const THRESHOLD = 0.92;   // umbral de "video casi terminado" para soltar el latch
-
-            const ready = () => {
-                duration = video.duration || 0;
-                video.pause();
-                update();
-            };
-            if (video.readyState >= 1) ready();
-            else video.addEventListener('loadedmetadata', ready);
-
-            const update = () => {
-                const rect       = wrapper.getBoundingClientRect();
-                const scrollable = wrapper.offsetHeight - window.innerHeight;
-                if (scrollable <= 0 || duration <= 0) return;
-
-                const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-
-                // Vídeo sigue al scroll (avanza al bajar, retrocede al subir)
-                const target = progress * (duration - 0.05);
-                try { video.currentTime = target; } catch (e) { /* seeking */ }
-
-                // CTAs: una vez alcanzado el umbral, quedan fijados (latch)
-                if (!latched && progress >= THRESHOLD) {
-                    latched = true;
-                    ctas.classList.add('revealed');
-                }
-
-                // Hint del scroll: se apaga en cuanto empieza el movimiento
-                if (hint) hint.style.opacity = Math.max(0, 1 - progress * 4);
-            };
-
-            window.addEventListener('scroll', () => {
-                if (ticking) return;
-                ticking = true;
-                requestAnimationFrame(() => { update(); ticking = false; });
-            }, { passive: true });
-
-            window.addEventListener('resize', update);
-        })();
+        // (La lógica del hero scroll-scrubbed vive en resources/js/hero.js,
+        //  cargada vía Vite a través de resources/js/app.js)
 
         // ── Reveal-on-scroll (Intersection Observer) ───────────────────
         (() => {
