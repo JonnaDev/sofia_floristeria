@@ -114,28 +114,150 @@
         .reveal-right { transform: translateX(50px); }
         .reveal-left.is-visible, .reveal-right.is-visible { transform: translateX(0); }
 
-        /* ---------------- Carousel apple-style ---------------- */
-        .flower-row { position: relative; }
-        .flower-image-wrap {
+        /* ---------------- Marquee carousel apple-style ---------------- */
+        .flower-marquee {
             position: relative;
-            overflow: hidden;
-            border-radius: 1.25rem;
-            background: #e5e7eb;
+            width: 100%;
         }
-        .flower-image-wrap img {
+        .marquee-viewport {
+            overflow: hidden;
+            cursor: grab;
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+                    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+            padding: 1.25rem 0;
+        }
+        .marquee-viewport.is-dragging { cursor: grabbing; }
+        .marquee-track {
+            display: flex;
+            gap: 1.25rem;
+            will-change: transform;
+            width: max-content;
+        }
+        @media (min-width: 768px) {
+            .marquee-track { gap: 1.75rem; }
+        }
+
+        /* Tarjeta */
+        .marquee-card {
+            flex: 0 0 78vw;
+            max-width: 280px;
+            background: #ffffff;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(17, 24, 39, 0.06);
+            box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04), 0 12px 28px -18px rgba(17, 24, 39, 0.18);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s cubic-bezier(.2,.7,.3,1),
+                        box-shadow 0.5s cubic-bezier(.2,.7,.3,1),
+                        border-color 0.5s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        @media (min-width: 640px) { .marquee-card { flex-basis: 280px; } }
+        @media (min-width: 1024px) { .marquee-card { flex-basis: 300px; } }
+
+        .marquee-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 4px 8px rgba(17, 24, 39, 0.06), 0 24px 48px -20px rgba(236, 72, 153, 0.25);
+            border-color: rgba(236, 72, 153, 0.18);
+        }
+
+        .marquee-img-wrap {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background: #f3f4f6;
+        }
+        .marquee-img-wrap img {
             width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 1s cubic-bezier(.2,.7,.3,1);
+            transition: transform 0.9s cubic-bezier(.2,.7,.3,1);
+            -webkit-user-drag: none;
+            pointer-events: none;
         }
-        .flower-row:hover .flower-image-wrap img { transform: scale(1.04); }
-        .flower-info-card {
-            background: rgba(17, 24, 39, 0.82);
-            backdrop-filter: saturate(180%) blur(14px);
-            -webkit-backdrop-filter: saturate(180%) blur(14px);
-            border: 1px solid rgba(255,255,255,0.08);
+        .marquee-card:hover .marquee-img-wrap img { transform: scale(1.06); }
+
+        .marquee-badge {
+            position: absolute;
+            top: 0.75rem; left: 0.75rem;
+            background: #ec4899;
             color: #fff;
-            border-radius: 1.25rem;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
         }
+
+        .marquee-body { padding: 1rem 1.1rem 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+        .marquee-cat {
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin: 0;
+        }
+        .marquee-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #111827;
+            line-height: 1.25;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .marquee-meta {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-top: 0.4rem;
+            padding-top: 0.7rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .marquee-price { font-size: 1.05rem; font-weight: 600; color: #111827; }
+        .marquee-stock { font-size: 11px; color: #9ca3af; }
+
+        /* Botones laterales (desktop) */
+        .marquee-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 44px; height: 44px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: saturate(180%) blur(12px);
+            -webkit-backdrop-filter: saturate(180%) blur(12px);
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            color: #111827;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px -10px rgba(17, 24, 39, 0.25);
+            transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+        @media (min-width: 1024px) {
+            .marquee-btn { display: flex; }
+            .flower-marquee:hover .marquee-btn,
+            .flower-marquee:focus-within .marquee-btn { opacity: 1; }
+        }
+        .marquee-btn:hover {
+            background: #ec4899;
+            color: #fff;
+            transform: translateY(-50%) scale(1.06);
+        }
+        .marquee-btn:active { transform: translateY(-50%) scale(0.96); }
+        .marquee-btn-prev { left: 1.25rem; }
+        .marquee-btn-next { right: 1.25rem; }
 
         /* ---------------- Utilidades ---------------- */
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -210,93 +332,84 @@
         </div>
     </section>
 
-    <!-- ============ CARRUSEL DESTACADOS (reveal-on-scroll) ============ -->
-    <section id="catalogo" class="relative py-20 md:py-32 bg-gradient-to-b from-gray-50 via-white to-gray-50">
+    <!-- ============ CARRUSEL DESTACADOS (apple-style infinite marquee) ============ -->
+    <section id="catalogo" class="relative py-20 md:py-32 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
-
-            <div class="text-center mb-16 md:mb-24 reveal">
+            <div class="text-center mb-12 md:mb-16 reveal">
                 <p class="text-xs tracking-[0.4em] uppercase text-gray-500 mb-3">Selección del momento</p>
                 <h2 class="font-serif-display text-4xl md:text-6xl font-light text-gray-900 mb-4">Arreglos más vendidos</h2>
                 <div class="w-16 h-px bg-gray-300 mx-auto"></div>
             </div>
-
-            @if($flowers->count() > 0)
-                <div class="space-y-24 md:space-y-40">
-                    @foreach($flowers as $i => $flower)
-                        @php
-                            $category = $flower->categories->first();
-                            $imageLeft = $i % 2 === 0;
-                        @endphp
-                        <a href="{{ route('catalog') }}?category_id={{ $category?->id ?? '' }}#flores"
-                           class="flower-row block group">
-
-                            <div class="grid md:grid-cols-12 gap-6 md:gap-10 items-center">
-
-                                <!-- Imagen -->
-                                <div class="md:col-span-7 reveal {{ $imageLeft ? 'reveal-left md:order-1' : 'reveal-right md:order-2' }}">
-                                    <div class="flower-image-wrap aspect-[4/3] shadow-2xl shadow-gray-900/10">
-                                        @if($flower->photo_flower_url)
-                                            <img src="{{ asset('storage/' . $flower->photo_flower_url) }}"
-                                                 alt="{{ $flower->name }}"
-                                                 loading="lazy">
-                                        @else
-                                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
-                                                <svg class="w-24 h-24 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
-                                                </svg>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <!-- Info card transparente -->
-                                <div class="md:col-span-5 reveal {{ $imageLeft ? 'reveal-right md:order-2' : 'reveal-left md:order-1' }}">
-                                    <div class="flower-info-card p-8 md:p-10">
-                                        @if($category)
-                                            <p class="text-xs tracking-[0.35em] uppercase text-white/60 mb-3">{{ $category->name }}</p>
-                                        @endif
-                                        <h3 class="font-serif-display text-2xl md:text-4xl font-light mb-5 leading-tight">{{ $flower->name }}</h3>
-                                        <p class="text-white/75 text-sm md:text-base leading-relaxed mb-6 line-clamp-3">
-                                            {{ $flower->description ?? 'Arreglo natural elaborado con flores frescas seleccionadas cada mañana.' }}
-                                        </p>
-
-                                        <div class="flex items-baseline gap-4 mb-6 pb-6 border-b border-white/10">
-                                            <span class="text-3xl md:text-4xl font-light">${{ number_format($flower->price, 0, ',', '.') }}</span>
-                                            <span class="text-sm text-white/50">· {{ $flower->stock }} disponibles</span>
-                                        </div>
-
-                                        <span class="inline-flex items-center gap-2 text-sm font-medium tracking-wide group-hover:gap-4 transition-all">
-                                            Ver categoría
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
-
-                <div class="text-center mt-20 md:mt-32 reveal">
-                    <a href="{{ route('catalog') }}"
-                       class="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-pink-500 transition shadow-lg">
-                        Ver todos los arreglos
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-            @else
-                <div class="text-center py-20 reveal">
-                    <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"></path>
-                    </svg>
-                    <h3 class="font-serif-display text-2xl md:text-3xl font-light text-gray-700 mb-3">Sin arreglos disponibles por ahora</h3>
-                    <p class="text-gray-500">Estamos preparando nuevos. Vuelve pronto.</p>
-                </div>
-            @endif
         </div>
+
+        @if($flowers->count() > 0)
+            <div id="flower-marquee" class="flower-marquee reveal" aria-label="Carrusel de arreglos destacados">
+                <button type="button" class="marquee-btn marquee-btn-prev" aria-label="Anterior">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <button type="button" class="marquee-btn marquee-btn-next" aria-label="Siguiente">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+
+                <div class="marquee-viewport" data-marquee-viewport>
+                    <div class="marquee-track" data-marquee-track>
+                        @foreach($flowers as $flower)
+                            @php $category = $flower->categories->first(); @endphp
+                            <a href="{{ route('catalog') }}?category_id={{ $category?->id ?? '' }}#flores"
+                               class="marquee-card group">
+                                <div class="marquee-img-wrap">
+                                    @if($flower->photo_flower_url)
+                                        <img src="{{ asset('storage/' . $flower->photo_flower_url) }}"
+                                             alt="{{ $flower->name }}" loading="lazy">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
+                                            <svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
+                                            </svg>
+                                        </div>
+                                    @endif
+                                    @if($flower->stock < 5)
+                                        <span class="marquee-badge">Pocas</span>
+                                    @endif
+                                </div>
+                                <div class="marquee-body">
+                                    @if($category)
+                                        <p class="marquee-cat">{{ $category->name }}</p>
+                                    @endif
+                                    <h3 class="marquee-name">{{ $flower->name }}</h3>
+                                    <div class="marquee-meta">
+                                        <span class="marquee-price">${{ number_format($flower->price, 0, ',', '.') }}</span>
+                                        <span class="marquee-stock">Stock: {{ $flower->stock }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 md:px-8 text-center mt-14 md:mt-20 reveal">
+                <a href="{{ route('catalog') }}"
+                   class="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-pink-500 transition shadow-lg">
+                    Ver todos los arreglos
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        @else
+            <div class="max-w-7xl mx-auto px-4 md:px-8 text-center py-20 reveal">
+                <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"></path>
+                </svg>
+                <h3 class="font-serif-display text-2xl md:text-3xl font-light text-gray-700 mb-3">Sin arreglos disponibles por ahora</h3>
+                <p class="text-gray-500">Estamos preparando nuevos. Vuelve pronto.</p>
+            </div>
+        @endif
     </section>
 
     <!-- ============ POR QUÉ ELEGIRNOS ============ -->
@@ -538,6 +651,138 @@
                 });
             }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
             elements.forEach(el => io.observe(el));
+        })();
+
+        // ── Carrusel apple-style: autoplay infinito + drag táctil ─────
+        (() => {
+            const marquee  = document.getElementById('flower-marquee');
+            if (!marquee) return;
+            const viewport = marquee.querySelector('[data-marquee-viewport]');
+            const track    = marquee.querySelector('[data-marquee-track]');
+            const btnPrev  = marquee.querySelector('.marquee-btn-prev');
+            const btnNext  = marquee.querySelector('.marquee-btn-next');
+            if (!viewport || !track || !track.children.length) return;
+
+            // Duplicamos las tarjetas para conseguir el bucle visual sin saltos.
+            const originals = Array.from(track.children);
+            originals.forEach(card => {
+                const clone = card.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                clone.tabIndex = -1;
+                track.appendChild(clone);
+            });
+
+            const SPEED = 0.55;          // px por frame (~33 px/s a 60fps)
+            const RESUME_DELAY = 1500;   // ms tras la última interacción
+
+            let offset = 0;
+            let halfWidth = 0;
+            let paused = false;
+            let dragging = false;
+            let dragStartX = 0;
+            let dragStartOffset = 0;
+            let resumeTimer = null;
+            let rafId = null;
+
+            const measure = () => {
+                halfWidth = track.scrollWidth / 2;
+            };
+            measure();
+            window.addEventListener('resize', measure);
+            // Recalcular cuando carguen las imágenes (cambian el ancho real).
+            track.querySelectorAll('img').forEach(img => {
+                if (!img.complete) img.addEventListener('load', measure, { once: true });
+            });
+
+            const normalize = () => {
+                if (halfWidth <= 0) return;
+                if (offset <= -halfWidth) offset += halfWidth;
+                else if (offset > 0)      offset -= halfWidth;
+            };
+
+            const apply = () => {
+                track.style.transform = `translate3d(${offset}px, 0, 0)`;
+            };
+
+            const tick = () => {
+                if (!paused && !dragging) {
+                    offset -= SPEED;
+                    normalize();
+                    apply();
+                }
+                rafId = requestAnimationFrame(tick);
+            };
+            rafId = requestAnimationFrame(tick);
+
+            const schedulePause = () => {
+                paused = true;
+                if (resumeTimer) clearTimeout(resumeTimer);
+            };
+            const scheduleResume = () => {
+                if (resumeTimer) clearTimeout(resumeTimer);
+                resumeTimer = setTimeout(() => { paused = false; }, RESUME_DELAY);
+            };
+
+            // Hover desktop: pausa mientras el cursor esté encima
+            marquee.addEventListener('mouseenter', () => { paused = true; });
+            marquee.addEventListener('mouseleave', () => { if (!dragging) paused = false; });
+
+            // Botones laterales: empuja un par de tarjetas
+            const stepBy = (dir) => {
+                const card = track.querySelector('.marquee-card');
+                const cardWidth = card ? card.getBoundingClientRect().width : 280;
+                const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '20') || 20;
+                offset += dir * (cardWidth + gap);
+                normalize();
+                apply();
+                schedulePause();
+                scheduleResume();
+            };
+            btnPrev?.addEventListener('click', () => stepBy(1));
+            btnNext?.addEventListener('click', () => stepBy(-1));
+
+            // Drag con puntero (cubre mouse y touch)
+            const onDown = (e) => {
+                dragging = true;
+                schedulePause();
+                viewport.classList.add('is-dragging');
+                dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
+                dragStartOffset = offset;
+            };
+            const onMove = (e) => {
+                if (!dragging) return;
+                const x = (e.touches ? e.touches[0].clientX : e.clientX);
+                offset = dragStartOffset + (x - dragStartX);
+                normalize();
+                apply();
+            };
+            const onUp = () => {
+                if (!dragging) return;
+                dragging = false;
+                viewport.classList.remove('is-dragging');
+                scheduleResume();
+            };
+
+            viewport.addEventListener('mousedown', onDown);
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onUp);
+            viewport.addEventListener('touchstart', onDown, { passive: true });
+            window.addEventListener('touchmove', onMove,   { passive: true });
+            window.addEventListener('touchend', onUp);
+            window.addEventListener('touchcancel', onUp);
+
+            // Evitar arrastrar imágenes nativamente
+            track.addEventListener('dragstart', (e) => e.preventDefault());
+
+            // Pausar cuando la pestaña no está visible (ahorra CPU)
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    if (rafId) cancelAnimationFrame(rafId);
+                    rafId = null;
+                } else if (!rafId) {
+                    rafId = requestAnimationFrame(tick);
+                }
+            });
         })();
     </script>
 
