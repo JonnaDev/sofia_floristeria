@@ -56,8 +56,6 @@
         }
         #hero-gradient {
             position: absolute; inset: 0;
-            background:
-                linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.65) 100%);
             pointer-events: none;
         }
         #hero-ctas {
