@@ -30,7 +30,7 @@
     </script>
 
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-    <link rel="preload" as="video" href="{{ asset('videos/hero.mp4') }}">
+    <link rel="preload" as="video" href="{{ asset('videos/hero-original.mp4') }}">
     <link rel="preload" as="image" href="{{ asset('images/hero-poster.webp') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -177,13 +177,13 @@
     </div>
     @endif
 
-    <!-- ============ HERO: VIDEO SCROLL-SCRUBBED ============ -->
+    <!-- ============ HERO: VIDEO LOOP ============ -->
     <section id="hero-wrapper" style="height: 100vh;">
         <div id="hero-sticky">
             <video id="hero-video"
-                   muted playsinline preload="auto"
+                   muted playsinline autoplay loop preload="auto"
                    poster="{{ asset('images/hero-poster.webp') }}">
-                <source src="{{ asset('videos/hero.mp4') }}" type="video/mp4">
+                <source src="{{ asset('videos/hero-original.mp4') }}" type="video/mp4">
             </video>
             <div id="hero-gradient"></div>
 
