@@ -63,19 +63,16 @@
             display: flex; align-items: center; justify-content: center;
             padding: 0 1.5rem;
             pointer-events: none;
-        }
-        #hero-ctas .hero-stagger > * {
             opacity: 0;
-            transform: translateY(22px);
-            transition: opacity 0.9s cubic-bezier(.2,.7,.3,1),
-                        transform 0.9s cubic-bezier(.2,.7,.3,1);
+            transform: translateY(-28px);
+            transition: opacity 1s cubic-bezier(.2,.7,.3,1),
+                        transform 1s cubic-bezier(.2,.7,.3,1);
         }
-        #hero-ctas.revealed { pointer-events: auto; }
-        #hero-ctas.revealed .hero-stagger > * { opacity: 1; transform: translateY(0); }
-        #hero-ctas.revealed .hero-stagger > :nth-child(1) { transition-delay: 0s; }
-        #hero-ctas.revealed .hero-stagger > :nth-child(2) { transition-delay: 0.18s; }
-        #hero-ctas.revealed .hero-stagger > :nth-child(3) { transition-delay: 0.36s; }
-        #hero-ctas.revealed .hero-stagger > :nth-child(4) { transition-delay: 0.54s; }
+        #hero-ctas.revealed {
+            pointer-events: auto;
+            opacity: 1;
+            transform: translateY(0);
+        }
         #scroll-hint {
             position: absolute;
             bottom: 2rem; left: 50%;
