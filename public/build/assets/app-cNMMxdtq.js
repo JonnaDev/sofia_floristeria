@@ -1,0 +1,1 @@
+(()=>{const e=document.getElementById("hero-video"),t=document.getElementById("hero-ctas");e&&(e.muted=!0,e.loop=!0,e.autoplay=!0,e.playsInline=!0,e.play().catch(()=>{})),t&&requestAnimationFrame(()=>t.classList.add("revealed"))})();
